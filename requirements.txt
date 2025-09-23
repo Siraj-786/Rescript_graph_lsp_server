@@ -1,0 +1,3 @@
+networkx
+lsprotocol
+pygls
