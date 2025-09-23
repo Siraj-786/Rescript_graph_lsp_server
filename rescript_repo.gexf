@@ -1259,16 +1259,16 @@
     </nodes>
     <edges>
       <edge source="Main.res::main" target="External/Built-in" id="0" type="external_reference" />
-      <edge source="Main.res::make" target="Main.res::make.statusMessage" id="1" type="reference" />
-      <edge source="Main.res::make" target="External/Built-in" id="2" type="external_reference" />
-      <edge source="Main.res::make" target="React.res::element" id="3" type="reference" />
+      <edge source="Main.res::make" target="External/Built-in" id="1" type="external_reference" />
+      <edge source="Main.res::make" target="React.res::element" id="2" type="reference" />
+      <edge source="Main.res::make" target="Main.res::make.statusMessage" id="3" type="reference" />
       <edge source="Main.res::make" target="Main.res::make.myName" id="4" type="reference" />
       <edge source="Main.res::make.myId" target="External/Built-in" id="5" type="external_reference" />
       <edge source="Main.res::make.myName" target="External/Built-in" id="6" type="external_reference" />
       <edge source="Main.res::make.myEmail" target="External/Built-in" id="7" type="external_reference" />
-      <edge source="Main.res::make.user1" target="Utils.res::makeUser" id="8" type="reference" />
-      <edge source="Main.res::make.user1" target="Main.res::make.myName" id="9" type="reference" />
-      <edge source="Main.res::make.user1" target="Main.res::make.myId" id="10" type="reference" />
+      <edge source="Main.res::make.user1" target="Main.res::make.myId" id="8" type="reference" />
+      <edge source="Main.res::make.user1" target="Utils.res::makeUser" id="9" type="reference" />
+      <edge source="Main.res::make.user1" target="Main.res::make.myName" id="10" type="reference" />
       <edge source="Main.res::make.user1" target="Main.res::make.myEmail" id="11" type="reference" />
       <edge source="Main.res::make.userEmail" target="External/Built-in" id="12" type="external_reference" />
       <edge source="Main.res::make.status" target="Utils.res::loginUser" id="13" type="reference" />
@@ -1283,11 +1283,11 @@
       <edge source="Data.res::requestStatus.Success" target="External/Built-in" id="22" type="external_reference" />
       <edge source="Data.res::requestStatus.Error" target="External/Built-in" id="23" type="external_reference" />
       <edge source="Data.res::Request" target="External/Built-in" id="24" type="external_reference" />
-      <edge source="Data.res::Request.fetchData" target="Data.res::requestStatus.Loading" id="25" type="reference" />
-      <edge source="Data.res::Request.fetchData" target="External/Built-in" id="26" type="external_reference" />
-      <edge source="Data.res::Request.fetchData" target="Data.res::requestStatus.Success" id="27" type="reference" />
-      <edge source="Data.res::Request.fetchData" target="Data.res::requestStatus.Error" id="28" type="reference" />
-      <edge source="Data.res::Request.fetchData" target="Data.res::requestStatus" id="29" type="reference" />
+      <edge source="Data.res::Request.fetchData" target="Data.res::requestStatus.Success" id="25" type="reference" />
+      <edge source="Data.res::Request.fetchData" target="Data.res::requestStatus" id="26" type="reference" />
+      <edge source="Data.res::Request.fetchData" target="Data.res::requestStatus.Error" id="27" type="reference" />
+      <edge source="Data.res::Request.fetchData" target="External/Built-in" id="28" type="external_reference" />
+      <edge source="Data.res::Request.fetchData" target="Data.res::requestStatus.Loading" id="29" type="reference" />
       <edge source="Data.res::NetworkError" target="External/Built-in" id="30" type="external_reference" />
     </edges>
   </graph>
