@@ -67,7 +67,7 @@ LSP_SERVER_PATH = os.path.join(PROJECT_ROOT, "node_modules", "@rescript", "langu
 def start_lsp_server():
     """Starts the language server subprocess."""
     process = subprocess.Popen(
-        ['node', LSP_SERVER_PATH, '--stdio'],
+        ['node', '--max-old-space-size=4096', LSP_SERVER_PATH, '--stdio'],
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE
@@ -92,10 +92,6 @@ def send_notification(process, method, params):
         process.stdin.flush()
     except BrokenPipeError:
         print(f"LSP Client: Broken pipe. The LSP server may have crashed.")
-        # You can also read from stderr here to get more details
-        stderr_output = process.stderr.read().decode('utf-8')
-        if stderr_output:
-            print(f"LSP Server stderr:\n{stderr_output}")
 
 def send_response(process, request_id, result):
     """Sends a response to a server-initiated request."""
@@ -116,9 +112,6 @@ def send_response(process, request_id, result):
         print(f"LSP Client: Sent response for server request {request_id}")
     except BrokenPipeError:
         print(f"LSP Client: Broken pipe. The LSP server may have crashed.")
-        stderr_output = process.stderr.read().decode('utf-8')
-        if stderr_output:
-            print(f"LSP Server stderr:\n{stderr_output}")
 
 def send_request(process, method, params):
     """Sends an LSP request and returns the response."""
@@ -143,9 +136,6 @@ def send_request(process, method, params):
         process.stdin.flush()
     except BrokenPipeError:
         print(f"LSP Client: Broken pipe. The LSP server may have crashed.")
-        stderr_output = process.stderr.read().decode('utf-8')
-        if stderr_output:
-            print(f"LSP Server stderr:\n{stderr_output}")
         return None
     return read_response(process, request_id)
 
