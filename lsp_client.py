@@ -76,6 +76,10 @@ def start_lsp_server():
 
 def send_notification(process, method, params):
     """Sends an LSP notification."""
+    if process.poll() is not None:
+        print(f"LSP Client: Server process has terminated. Cannot send notification: {method}")
+        return
+
     request = {
         "jsonrpc": "2.0",
         "method": method,
@@ -83,11 +87,22 @@ def send_notification(process, method, params):
     }
     encoded_request = json.dumps(request).encode('utf-8')
     header = f"Content-Length: {len(encoded_request)}\r\n\r\n".encode('utf-8')
-    process.stdin.write(header + encoded_request)
-    process.stdin.flush()
+    try:
+        process.stdin.write(header + encoded_request)
+        process.stdin.flush()
+    except BrokenPipeError:
+        print(f"LSP Client: Broken pipe. The LSP server may have crashed.")
+        # You can also read from stderr here to get more details
+        stderr_output = process.stderr.read().decode('utf-8')
+        if stderr_output:
+            print(f"LSP Server stderr:\n{stderr_output}")
 
 def send_response(process, request_id, result):
     """Sends a response to a server-initiated request."""
+    if process.poll() is not None:
+        print(f"LSP Client: Server process has terminated. Cannot send response for request {request_id}")
+        return
+
     response = {
         "jsonrpc": "2.0",
         "id": request_id,
@@ -95,12 +110,22 @@ def send_response(process, request_id, result):
     }
     encoded_response = json.dumps(response).encode('utf-8')
     header = f"Content-Length: {len(encoded_response)}\r\n\r\n".encode('utf-8')
-    process.stdin.write(header + encoded_response)
-    process.stdin.flush()
-    print(f"LSP Client: Sent response for server request {request_id}")
+    try:
+        process.stdin.write(header + encoded_response)
+        process.stdin.flush()
+        print(f"LSP Client: Sent response for server request {request_id}")
+    except BrokenPipeError:
+        print(f"LSP Client: Broken pipe. The LSP server may have crashed.")
+        stderr_output = process.stderr.read().decode('utf-8')
+        if stderr_output:
+            print(f"LSP Server stderr:\n{stderr_output}")
 
 def send_request(process, method, params):
     """Sends an LSP request and returns the response."""
+    if process.poll() is not None:
+        print(f"LSP Client: Server process has terminated. Cannot send request: {method}")
+        return None
+
     global request_id_counter
     request_id = request_id_counter
     request_id_counter += 1
@@ -113,8 +138,15 @@ def send_request(process, method, params):
     }
     encoded_request = json.dumps(request).encode('utf-8')
     header = f"Content-Length: {len(encoded_request)}\r\n\r\n".encode('utf-8')
-    process.stdin.write(header + encoded_request)
-    process.stdin.flush()
+    try:
+        process.stdin.write(header + encoded_request)
+        process.stdin.flush()
+    except BrokenPipeError:
+        print(f"LSP Client: Broken pipe. The LSP server may have crashed.")
+        stderr_output = process.stderr.read().decode('utf-8')
+        if stderr_output:
+            print(f"LSP Server stderr:\n{stderr_output}")
+        return None
     return read_response(process, request_id)
 
 def read_response(process, expected_id):
@@ -261,7 +293,7 @@ def build_repo_graph():
         )
         send_request(lsp_process, "initialize", init_params)
         send_notification(lsp_process, "initialized", InitializedParams())
-        time.sleep(2) # Give server a moment to finish initializing
+        time.sleep(10) # Give server a moment to finish initializing
 
         # 2. Get list of all .res files
         for root, _, files in os.walk(os.path.join(project_root, "src")):

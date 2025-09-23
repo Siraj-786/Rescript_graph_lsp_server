@@ -26,15 +26,22 @@ This project provides a Python script that analyzes a ReScript repository and ge
 
 ## Usage
 
-To generate the graph for a ReScript project, run the `lsp_client.py` script, optionally passing the path to the project's root directory as an argument. If no path is provided, it will analyze the current directory.
+To generate the graph for a ReScript project, run the `lsp_client.py` script, passing the path to the project's root directory as an argument. If no path is provided, it will analyze the current directory.
 
 ```bash
-# Analyze the current directory
-python3 lsp_client.py
-
 # Analyze a specific project
 python3 lsp_client.py /path/to/your/rescript/project
+
+# Analyze the current directory
+python3 lsp_client.py
 ```
+
+## Troubleshooting
+
+-   **BrokenPipeError**: If you see a `BrokenPipeError`, it means the ReScript language server crashed. The script will now automatically print the `stderr` from the server, which should help you diagnose the issue. Common causes include:
+    -   The server running out of memory on very large projects.
+    -   An issue with the ReScript installation or build.
+-   **No references found**: Make sure your project is compiled (`rescript build`) before running the analysis. The LSP server relies on the generated `.cmj` files.
 
 The script will automatically find all `rescript.json` files in the specified directory and its subdirectories, and generate the graph for each project.
 
