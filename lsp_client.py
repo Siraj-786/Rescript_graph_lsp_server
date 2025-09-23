@@ -374,18 +374,15 @@ if __name__ == "__main__":
         print(f"\\nGraph created with {code_graph.number_of_nodes()} nodes and {code_graph.number_of_edges()} edges.")
         
         # Save the graph to a file for visualization
-        output_gexf = "rescript_repo_with_abs_path
-        .gexf"
+        output_gexf = "rescript_repo_with_abs_path.gexf"
         nx.write_gexf(code_graph, output_gexf)
         print(f"Graph saved to '{output_gexf}'. Use a tool like Gephi to visualize it.")
 
-        output_graphml = "rescript_repo_with_abs_path
-        .graphml"
+        output_graphml = "rescript_repo_with_abs_path.graphml"
         nx.write_graphml(code_graph, output_graphml)
         print(f"Graph saved to '{output_graphml}'.")
 
-        output_pkl = "rescript_repo_with_abs_path
-        .pkl"
+        output_pkl = "rescript_repo_with_abs_path.pkl"
         with open(output_pkl, 'wb') as f:
             pickle.dump(code_graph, f)
         print(f"Graph saved to '{output_pkl}'.")
