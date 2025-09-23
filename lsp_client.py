@@ -37,7 +37,7 @@ request_id_counter = 1
 
 # --- Configuration ---
 # Path to your ReScript project root
-PROJECT_ROOT = os.path.abspath(".")
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # Determine the platform-specific binary path for the language server
 platform_name = sys.platform
@@ -55,14 +55,14 @@ else:
     bin_dir_name = platform_name + arch
 
 # Path to the ReScript language server executable
-LSP_SERVER_PATH = os.path.join(PROJECT_ROOT, "node_modules", ".bin", "rescript-language-server")
+LSP_SERVER_PATH = os.path.join(PROJECT_ROOT, "node_modules", "@rescript", "language-server", "out", "cli.js")
 
 # --- LSP Communication Helper Functions ---
 
 def start_lsp_server():
     """Starts the language server subprocess."""
     process = subprocess.Popen(
-        [LSP_SERVER_PATH, '--stdio'],
+        ['node', LSP_SERVER_PATH, '--stdio'],
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE
@@ -152,15 +152,7 @@ def find_potential_references(content):
     # 1. Uppercase identifiers, which are likely modules or components (e.g., Utils.makeUser, <MyComponent>)
     # 2. `Js.` followed by an identifier, for built-in JS interop (e.g., Js.log)
     # 3. `Array.` for built-in array functions.
-    return re.findall(r"([A-Z][\w\.]*|<[A-Z][\w\.]*|Js\.\w+|Array\.\w+)", content)
-
-def find_potential_references(content):
-    """Finds all potential function calls, JSX tags, and module access in the content."""
-    # This regex is a bit of a heuristic. It looks for:
-    # 1. Uppercase identifiers, which are likely modules or components (e.g., Utils.makeUser, <MyComponent>)
-    # 2. `Js.` followed by an identifier, for built-in JS interop (e.g., Js.log)
-    # 3. `Array.` for built-in array functions.
-    return re.findall(r"([A-Z][\w\.]*|<[A-Z][\w\.]*|Js\.\w+|Array\.\w+)", content)
+    return re.findall(r"([A-Z][\w\.]*|Js\.\w+|Array\.\w+)", content)
 
 def find_jsx_tags(content):
     """Finds all JSX tags (both opening and closing) in the given content."""
@@ -203,6 +195,8 @@ def process_symbols_recursively(graph, file_path, symbols, symbol_locations, fil
     """Recursively processes symbols, adding them to the graph and a location map."""
     lines = file_contents.get(file_path, "").splitlines()
     for symbol in symbols:
+        if symbol.kind.name.lower() == "property":
+            continue
         component_name = f"{parent_prefix}.{symbol.name}" if parent_prefix else symbol.name
         node_name = f"{os.path.basename(file_path)}::{component_name}"
         
@@ -223,7 +217,7 @@ def process_symbols_recursively(graph, file_path, symbols, symbol_locations, fil
 def build_repo_graph():
     graph = nx.DiGraph()
     rescript_json_files = []
-    for root, _, files in os.walk(os.path.join(PROJECT_ROOT, "apps")):
+    for root, _, files in os.walk(PROJECT_ROOT):
         if "node_modules" in root:
             continue
         for file in files:
@@ -240,7 +234,7 @@ def build_repo_graph():
         # First, compile the project to generate the necessary analysis files
         print("Compiling ReScript project...")
         try:
-            subprocess.run([os.path.join(PROJECT_ROOT, "node_modules", ".bin", "rescript")], check=True, cwd=project_root)
+            subprocess.run([os.path.join(PROJECT_ROOT, "node_modules", "rescript", "rescript")], check=True, cwd=project_root)
         except (subprocess.CalledProcessError, FileNotFoundError) as e:
             print(f"Failed to compile ReScript project: {e}")
             continue
@@ -282,46 +276,63 @@ def build_repo_graph():
 
         for source_file_path, source_content in list(file_contents.items()):
             lines = source_content.splitlines()
-            potential_refs = find_potential_references(source_content)
+            
+            all_refs = find_potential_references(source_content) + find_jsx_tags(source_content)
 
-            for ref_name in set(potential_refs):
-                clean_ref_name = ref_name.replace('<', '').replace('/', '')
-
-                for line_num, line in enumerate(lines):
-                    col = line.find(clean_ref_name)
-                    if col != -1:
-                        uri = f"file://{source_file_path}"
-                        position = Position(line=line_num, character=col)
-                        params = DefinitionParams(text_document=TextDocumentIdentifier(uri=uri), position=position)
-                        response = send_request(lsp_process, "textDocument/definition", params)
-
-                        source_node_name = symbol_locations.get(f"{source_file_path}:{line_num}")
-                        if not source_node_name:
-                            continue
-
-                        if response and 'result' in response and response['result'] is not None:
-                            results = response['result']
-                            if not isinstance(results, list):
-                                results = [results]
-                            
-                            for def_loc in results:
-                                def_file_path = urlparse(def_loc['uri']).path
-                                def_line = def_loc['range']['start']['line']
-
-                                if def_file_path not in file_contents:
-                                    analyze_file_on_demand(lsp_process, def_file_path, graph, symbol_locations, file_contents)
-
-                                target_node_name = symbol_locations.get(f"{def_file_path}:{def_line}")
-                                if target_node_name and source_node_name != target_node_name:
-                                    graph.add_edge(source_node_name, target_node_name, type="reference")
-                        else:
-                            # This is likely an external or built-in function
-                            graph.add_edge(source_node_name, "External/Built-in", type="external_reference")
+            process_references(lsp_process, graph, symbol_locations, file_contents, source_file_path, lines, set(all_refs))
 
         # Stop the server
         print("Shutting down LSP server...")
         lsp_process.kill()
     return graph
+
+def process_references(lsp_process, graph, symbol_locations, file_contents, source_file_path, lines, ref_names):
+    """Helper to process different kinds of references (definition, type definition)."""
+    for ref_name in ref_names:
+        clean_ref_name = ref_name.replace('<', '').replace('/', '')
+        for line_num, line in enumerate(lines):
+            col = line.find(clean_ref_name)
+            if col != -1:
+                uri = f"file://{source_file_path}"
+                position = Position(line=line_num, character=col)
+                
+                # Get definition
+                def_params = DefinitionParams(text_document=TextDocumentIdentifier(uri=uri), position=position)
+                def_response = send_request(lsp_process, "textDocument/definition", def_params)
+                
+                edge_type = "jsx" if ref_name.startswith('<') else "reference"
+                handle_response(lsp_process, graph, symbol_locations, file_contents, source_file_path, line_num, def_response, edge_type)
+
+                # Get type definition
+                type_def_params = TypeDefinitionParams(text_document=TextDocumentIdentifier(uri=uri), position=position)
+                type_def_response = send_request(lsp_process, "textDocument/typeDefinition", type_def_params)
+                handle_response(lsp_process, graph, symbol_locations, file_contents, source_file_path, line_num, type_def_response, "type_definition")
+
+def handle_response(lsp_process, graph, symbol_locations, file_contents, source_file_path, line_num, response, edge_type):
+    """Helper to handle LSP responses and add edges to the graph."""
+    source_node_name = symbol_locations.get(f"{source_file_path}:{line_num}")
+    if not source_node_name:
+        return
+
+    if response and 'result' in response and response['result'] is not None:
+        results = response['result']
+        if not isinstance(results, list):
+            results = [results]
+        
+        for def_loc in results:
+            def_file_path = urlparse(def_loc['uri']).path
+            def_line = def_loc['range']['start']['line']
+
+            if def_file_path not in file_contents:
+                analyze_file_on_demand(lsp_process, def_file_path, graph, symbol_locations, file_contents)
+
+            target_node_name = symbol_locations.get(f"{def_file_path}:{def_line}")
+            if target_node_name and source_node_name != target_node_name:
+                graph.add_edge(source_node_name, target_node_name, type=edge_type)
+    else:
+        # This is likely an external or built-in function
+        if edge_type == "reference": # Only add external references for definitions
+            graph.add_edge(source_node_name, "External/Built-in", type="external_reference")
 
 # --- Execute and Save ---
 
