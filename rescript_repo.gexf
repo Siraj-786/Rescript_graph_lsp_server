@@ -1,0 +1,1294 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gexf xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
+  <meta lastmodifieddate="2025-09-23">
+    <creator>NetworkX 3.4.2</creator>
+  </meta>
+  <graph defaultedgetype="directed" mode="static" name="">
+    <attributes mode="static" class="node">
+      <attribute id="0" title="kind" type="string" />
+      <attribute id="1" title="file" type="string" />
+      <attribute id="2" title="code" type="string" />
+    </attributes>
+    <nodes>
+      <node id="Main.res::main" label="Main.res::main">
+        <attvalues>
+          <attvalue for="0" value="function" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app2/src/Main.res" />
+          <attvalue for="2" value="let main = () =&gt; {&#10;  Js.log(&quot;Hello from App 2!&quot;)&#10;}" />
+        </attvalues>
+      </node>
+      <node id="External/Built-in" label="External/Built-in">
+        <attvalues>
+          <attvalue for="0" value="external" />
+          <attvalue for="1" value="" />
+          <attvalue for="2" value="" />
+        </attvalues>
+      </node>
+      <node id="Main.res::make" label="Main.res::make">
+        <attvalues>
+          <attvalue for="0" value="function" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Main.res" />
+          <attvalue for="2" value="@react.component&#10;let make = () =&gt; {&#10;  // Define some user data using a let binding&#10;  let myId = 1&#10;  let myName = &quot;Alice&quot;&#10;  let myEmail = &quot;alice@example.com&quot;&#10;&#10;  // Use a function from Utils.res to create a user record&#10;  let user1 = Utils.makeUser(myId, myName, myEmail)&#10;&#10;  // Use another function from Utils.res to get the email&#10;  let userEmail = Utils.getEmail(user1)&#10;&#10;  // Use a module-scoped function from Data.res&#10;  let status = Utils.loginUser(true)&#10;  let statusMessage = Data.Request.fetchData(status)&#10;&#10;  // Throw a custom exception from Data.res&#10;  let _ = try {&#10;    if myName == &quot;Alice&quot; {&#10;      raise(Data.NetworkError(&quot;User 'Alice' is not allowed&quot;))&#10;    }&#10;  } catch {&#10;  | Data.NetworkError(msg) =&gt; Js.log(&quot;Caught a network error: &quot; ++ msg)&#10;  | _ =&gt; ()&#10;  }&#10;&#10;  // JSX syntax for rendering a simple UI element&#10;  &lt;div&gt;&#10;    &lt;h1&gt; {React.string(&quot;User Profile&quot;)} &lt;/h1&gt;&#10;    &lt;p&gt; {React.string(&quot;Email: &quot; ++ userEmail)} &lt;/p&gt;&#10;    &lt;p&gt; {React.string(&quot;Status: &quot; ++ statusMessage)} &lt;/p&gt;&#10;  &lt;/div&gt;&#10;}" />
+        </attvalues>
+      </node>
+      <node id="Main.res::make.myId" label="Main.res::make.myId">
+        <attvalues>
+          <attvalue for="0" value="number" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Main.res" />
+          <attvalue for="2" value="  let myId = 1" />
+        </attvalues>
+      </node>
+      <node id="Main.res::make.myName" label="Main.res::make.myName">
+        <attvalues>
+          <attvalue for="0" value="string" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Main.res" />
+          <attvalue for="2" value="  let myName = &quot;Alice&quot;" />
+        </attvalues>
+      </node>
+      <node id="Main.res::make.myEmail" label="Main.res::make.myEmail">
+        <attvalues>
+          <attvalue for="0" value="string" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Main.res" />
+          <attvalue for="2" value="  let myEmail = &quot;alice@example.com&quot;" />
+        </attvalues>
+      </node>
+      <node id="Main.res::make.user1" label="Main.res::make.user1">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Main.res" />
+          <attvalue for="2" value="  let user1 = Utils.makeUser(myId, myName, myEmail)" />
+        </attvalues>
+      </node>
+      <node id="Main.res::make.userEmail" label="Main.res::make.userEmail">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Main.res" />
+          <attvalue for="2" value="  let userEmail = Utils.getEmail(user1)" />
+        </attvalues>
+      </node>
+      <node id="Main.res::make.status" label="Main.res::make.status">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Main.res" />
+          <attvalue for="2" value="  let status = Utils.loginUser(true)" />
+        </attvalues>
+      </node>
+      <node id="Main.res::make.statusMessage" label="Main.res::make.statusMessage">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Main.res" />
+          <attvalue for="2" value="  let statusMessage = Data.Request.fetchData(status)" />
+        </attvalues>
+      </node>
+      <node id="External.res::logCurrentTime" label="External.res::logCurrentTime">
+        <attvalues>
+          <attvalue for="0" value="function" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/External.res" />
+          <attvalue for="2" value="let logCurrentTime = () =&gt; {&#10;  // Js.log is a built-in function that maps to console.log&#10;  Js.log(&quot;Logging the current time:&quot;)&#10;&#10;  // Js.Date.now() is a built-in function&#10;  let now = Js.Date.now()&#10;&#10;  Js.log(now)&#10;}" />
+        </attvalues>
+      </node>
+      <node id="External.res::logCurrentTime.now" label="External.res::logCurrentTime.now">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/External.res" />
+          <attvalue for="2" value="  let now = Js.Date.now()" />
+        </attvalues>
+      </node>
+      <node id="External.res::isToday" label="External.res::isToday">
+        <attvalues>
+          <attvalue for="0" value="function" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/External.res" />
+          <attvalue for="2" value="let isToday = (date: Js.Date.t): bool =&gt; {&#10;  // Js.Date.getDay() is another built-in&#10;  Js.Date.getDay(date) == Js.Date.getDay(Js.Date.fromFloat(Js.Date.now()))&#10;}" />
+        </attvalues>
+      </node>
+      <node id="Utils.res::user" label="Utils.res::user">
+        <attvalues>
+          <attvalue for="0" value="typeparameter" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Utils.res" />
+          <attvalue for="2" value="type user = {&#10;  id: int,&#10;  name: string,&#10;  email: string,&#10;}" />
+        </attvalues>
+      </node>
+      <node id="Utils.res::user.id" label="Utils.res::user.id">
+        <attvalues>
+          <attvalue for="0" value="property" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Utils.res" />
+          <attvalue for="2" value="  id: int," />
+        </attvalues>
+      </node>
+      <node id="Utils.res::user.name" label="Utils.res::user.name">
+        <attvalues>
+          <attvalue for="0" value="property" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Utils.res" />
+          <attvalue for="2" value="  name: string," />
+        </attvalues>
+      </node>
+      <node id="Utils.res::user.email" label="Utils.res::user.email">
+        <attvalues>
+          <attvalue for="0" value="property" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Utils.res" />
+          <attvalue for="2" value="  email: string," />
+        </attvalues>
+      </node>
+      <node id="Utils.res::makeUser" label="Utils.res::makeUser">
+        <attvalues>
+          <attvalue for="0" value="function" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Utils.res" />
+          <attvalue for="2" value="let makeUser = (id, name, email) =&gt; {&#10;  {id: id, name: name, email: email}&#10;}" />
+        </attvalues>
+      </node>
+      <node id="Utils.res::getEmail" label="Utils.res::getEmail">
+        <attvalues>
+          <attvalue for="0" value="function" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Utils.res" />
+          <attvalue for="2" value="let getEmail = (user: user): string =&gt; {&#10;  user.email&#10;}" />
+        </attvalues>
+      </node>
+      <node id="Utils.res::loginUser" label="Utils.res::loginUser">
+        <attvalues>
+          <attvalue for="0" value="function" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Utils.res" />
+          <attvalue for="2" value="let loginUser = (isLoggedIn: bool) =&gt; {&#10;  if isLoggedIn {&#10;    Data.Success(&quot;User logged in successfully&quot;)&#10;  } else {&#10;    Data.Error(401) // Unauthorized&#10;  }&#10;}" />
+        </attvalues>
+      </node>
+      <node id="Data.res::requestStatus" label="Data.res::requestStatus">
+        <attvalues>
+          <attvalue for="0" value="typeparameter" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Data.res" />
+          <attvalue for="2" value="type requestStatus =&#10;  | Loading&#10;  | Success(string) // Success carries a payload (string message)&#10;  | Error(int) // Error carries a payload (integer error code)" />
+        </attvalues>
+      </node>
+      <node id="Data.res::requestStatus.Loading" label="Data.res::requestStatus.Loading">
+        <attvalues>
+          <attvalue for="0" value="enummember" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Data.res" />
+          <attvalue for="2" value="  | Loading" />
+        </attvalues>
+      </node>
+      <node id="Data.res::requestStatus.Success" label="Data.res::requestStatus.Success">
+        <attvalues>
+          <attvalue for="0" value="enummember" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Data.res" />
+          <attvalue for="2" value="  | Success(string) // Success carries a payload (string message)" />
+        </attvalues>
+      </node>
+      <node id="Data.res::requestStatus.Error" label="Data.res::requestStatus.Error">
+        <attvalues>
+          <attvalue for="0" value="enummember" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Data.res" />
+          <attvalue for="2" value="  | Error(int) // Error carries a payload (integer error code)" />
+        </attvalues>
+      </node>
+      <node id="Data.res::Request" label="Data.res::Request">
+        <attvalues>
+          <attvalue for="0" value="module" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Data.res" />
+          <attvalue for="2" value="module Request = {&#10;  let fetchData = (status: requestStatus): string =&gt; {&#10;    switch status {&#10;    | Loading =&gt; &quot;Data is loading...&quot;&#10;    | Success(msg) =&gt; &quot;Request succeeded: &quot; ++ msg&#10;    | Error(code) =&gt; &quot;Request failed with code: &quot; ++ string_of_int(code)&#10;    }&#10;  }&#10;}" />
+        </attvalues>
+      </node>
+      <node id="Data.res::Request.fetchData" label="Data.res::Request.fetchData">
+        <attvalues>
+          <attvalue for="0" value="function" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Data.res" />
+          <attvalue for="2" value="  let fetchData = (status: requestStatus): string =&gt; {&#10;    switch status {&#10;    | Loading =&gt; &quot;Data is loading...&quot;&#10;    | Success(msg) =&gt; &quot;Request succeeded: &quot; ++ msg&#10;    | Error(code) =&gt; &quot;Request failed with code: &quot; ++ string_of_int(code)&#10;    }&#10;  }" />
+        </attvalues>
+      </node>
+      <node id="Data.res::NetworkError" label="Data.res::NetworkError">
+        <attvalues>
+          <attvalue for="0" value="constructor" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/apps/app1/src/Data.res" />
+          <attvalue for="2" value="exception NetworkError(string)" />
+        </attvalues>
+      </node>
+      <node id="React.res::element" label="React.res::element">
+        <attvalues>
+          <attvalue for="0" value="typeparameter" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="type element = Jsx.element" />
+        </attvalues>
+      </node>
+      <node id="React.res::null" label="React.res::null">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@val external null: element = &quot;null&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::float" label="React.res::float">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="external float: float =&gt; element = &quot;%identity&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::int" label="React.res::int">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="external int: int =&gt; element = &quot;%identity&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::string" label="React.res::string">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="external string: string =&gt; element = &quot;%identity&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::array" label="React.res::array">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="external array: array&lt;element&gt; =&gt; element = &quot;%identity&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::componentLike" label="React.res::componentLike">
+        <attvalues>
+          <attvalue for="0" value="typeparameter" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="type componentLike&lt;'props, 'return&gt; = Jsx.componentLike&lt;'props, 'return&gt;" />
+        </attvalues>
+      </node>
+      <node id="React.res::component" label="React.res::component">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="external component: componentLike&lt;'props, element&gt; =&gt; component&lt;'props&gt; = &quot;%identity&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::createElement" label="React.res::createElement">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external createElement: (component&lt;'props&gt;, 'props) =&gt; element = &quot;createElement&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::cloneElement" label="React.res::cloneElement">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external cloneElement: (element, 'props) =&gt; element = &quot;cloneElement&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::isValidElement" label="React.res::isValidElement">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external isValidElement: 'a =&gt; bool = &quot;isValidElement&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::createElementVariadic" label="React.res::createElementVariadic">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@variadic @module(&quot;react&quot;)&#10;external createElementVariadic: (component&lt;'props&gt;, 'props, array&lt;element&gt;) =&gt; element =&#10;  &quot;createElement&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::jsx" label="React.res::jsx">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react/jsx-runtime&quot;)&#10;external jsx: (component&lt;'props&gt;, 'props) =&gt; element = &quot;jsx&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::jsxKeyed" label="React.res::jsxKeyed">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react/jsx-runtime&quot;)&#10;external jsxKeyed: (component&lt;'props&gt;, 'props, ~key: string=?, @ignore unit) =&gt; element = &quot;jsx&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::jsxs" label="React.res::jsxs">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react/jsx-runtime&quot;)&#10;external jsxs: (component&lt;'props&gt;, 'props) =&gt; element = &quot;jsxs&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::jsxsKeyed" label="React.res::jsxsKeyed">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react/jsx-runtime&quot;)&#10;external jsxsKeyed: (component&lt;'props&gt;, 'props, ~key: string=?, @ignore unit) =&gt; element = &quot;jsxs&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::fragmentProps" label="React.res::fragmentProps">
+        <attvalues>
+          <attvalue for="0" value="typeparameter" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="type fragmentProps&lt;'children&gt; = {children?: 'children}" />
+        </attvalues>
+      </node>
+      <node id="React.res::fragmentProps.children" label="React.res::fragmentProps.children">
+        <attvalues>
+          <attvalue for="0" value="property" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="type fragmentProps&lt;'children&gt; = {children?: 'children}" />
+        </attvalues>
+      </node>
+      <node id="React.res::jsxFragment" label="React.res::jsxFragment">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react/jsx-runtime&quot;) external jsxFragment: component&lt;fragmentProps&lt;'children&gt;&gt; = &quot;Fragment&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::ref" label="React.res::ref">
+        <attvalues>
+          <attvalue for="0" value="typeparameter" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="type ref&lt;'value&gt; = {mutable current: 'value}" />
+        </attvalues>
+      </node>
+      <node id="React.res::ref.current" label="React.res::ref.current">
+        <attvalues>
+          <attvalue for="0" value="property" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="type ref&lt;'value&gt; = {mutable current: 'value}" />
+        </attvalues>
+      </node>
+      <node id="React.res::Ref" label="React.res::Ref">
+        <attvalues>
+          <attvalue for="0" value="module" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="module Ref = {&#10;  @deprecated(&quot;Please use the type React.ref instead&quot;)&#10;  type t&lt;'value&gt; = ref&lt;'value&gt;&#10;&#10;  @deprecated(&quot;Please directly read from ref.current instead&quot;) @get&#10;  external current: ref&lt;'value&gt; =&gt; 'value = &quot;current&quot;&#10;&#10;  @deprecated(&quot;Please directly assign to ref.current instead&quot;) @set&#10;  external setCurrent: (ref&lt;'value&gt;, 'value) =&gt; unit = &quot;current&quot;&#10;}" />
+        </attvalues>
+      </node>
+      <node id="React.res::Ref.t" label="React.res::Ref.t">
+        <attvalues>
+          <attvalue for="0" value="typeparameter" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  type t&lt;'value&gt; = ref&lt;'value&gt;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Ref.current" label="React.res::Ref.current">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @deprecated(&quot;Please directly read from ref.current instead&quot;) @get&#10;  external current: ref&lt;'value&gt; =&gt; 'value = &quot;current&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Ref.setCurrent" label="React.res::Ref.setCurrent">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @deprecated(&quot;Please directly assign to ref.current instead&quot;) @set&#10;  external setCurrent: (ref&lt;'value&gt;, 'value) =&gt; unit = &quot;current&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::createRef" label="React.res::createRef">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external createRef: unit =&gt; ref&lt;Js.nullable&lt;'a&gt;&gt; = &quot;createRef&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Children" label="React.res::Children">
+        <attvalues>
+          <attvalue for="0" value="module" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="module Children = {&#10;  @module(&quot;react&quot;) @scope(&quot;Children&quot;)&#10;  external map: (element, element =&gt; element) =&gt; element = &quot;map&quot;&#10;  @module(&quot;react&quot;) @scope(&quot;Children&quot;)&#10;  external mapWithIndex: (element, @uncurry (element, int) =&gt; element) =&gt; element = &quot;map&quot;&#10;  @module(&quot;react&quot;) @scope(&quot;Children&quot;)&#10;  external forEach: (element, element =&gt; unit) =&gt; unit = &quot;forEach&quot;&#10;  @module(&quot;react&quot;) @scope(&quot;Children&quot;)&#10;  external forEachWithIndex: (element, @uncurry (element, int) =&gt; unit) =&gt; unit = &quot;forEach&quot;&#10;  @module(&quot;react&quot;) @scope(&quot;Children&quot;)&#10;  external count: element =&gt; int = &quot;count&quot;&#10;  @module(&quot;react&quot;) @scope(&quot;Children&quot;)&#10;  external only: element =&gt; element = &quot;only&quot;&#10;  @module(&quot;react&quot;) @scope(&quot;Children&quot;)&#10;  external toArray: element =&gt; array&lt;element&gt; = &quot;toArray&quot;&#10;}" />
+        </attvalues>
+      </node>
+      <node id="React.res::Children.map" label="React.res::Children.map">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;) @scope(&quot;Children&quot;)&#10;  external map: (element, element =&gt; element) =&gt; element = &quot;map&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Children.mapWithIndex" label="React.res::Children.mapWithIndex">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;) @scope(&quot;Children&quot;)&#10;  external mapWithIndex: (element, @uncurry (element, int) =&gt; element) =&gt; element = &quot;map&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Children.forEach" label="React.res::Children.forEach">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;) @scope(&quot;Children&quot;)&#10;  external forEach: (element, element =&gt; unit) =&gt; unit = &quot;forEach&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Children.forEachWithIndex" label="React.res::Children.forEachWithIndex">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;) @scope(&quot;Children&quot;)&#10;  external forEachWithIndex: (element, @uncurry (element, int) =&gt; unit) =&gt; unit = &quot;forEach&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Children.count" label="React.res::Children.count">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;) @scope(&quot;Children&quot;)&#10;  external count: element =&gt; int = &quot;count&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Children.only" label="React.res::Children.only">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;) @scope(&quot;Children&quot;)&#10;  external only: element =&gt; element = &quot;only&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Children.toArray" label="React.res::Children.toArray">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;) @scope(&quot;Children&quot;)&#10;  external toArray: element =&gt; array&lt;element&gt; = &quot;toArray&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Context" label="React.res::Context">
+        <attvalues>
+          <attvalue for="0" value="module" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="module Context = {&#10;  type t&lt;'context&gt;&#10;&#10;  type props&lt;'context&gt; = {&#10;    value: 'context,&#10;    children: element,&#10;  }&#10;&#10;  @get&#10;  external provider: t&lt;'context&gt; =&gt; component&lt;props&lt;'context&gt;&gt; = &quot;Provider&quot;&#10;}" />
+        </attvalues>
+      </node>
+      <node id="React.res::Context.t" label="React.res::Context.t">
+        <attvalues>
+          <attvalue for="0" value="typeparameter" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  type t&lt;'context&gt;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Context.props" label="React.res::Context.props">
+        <attvalues>
+          <attvalue for="0" value="typeparameter" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  type props&lt;'context&gt; = {&#10;    value: 'context,&#10;    children: element,&#10;  }" />
+        </attvalues>
+      </node>
+      <node id="React.res::Context.props.value" label="React.res::Context.props.value">
+        <attvalues>
+          <attvalue for="0" value="property" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="    value: 'context," />
+        </attvalues>
+      </node>
+      <node id="React.res::Context.props.children" label="React.res::Context.props.children">
+        <attvalues>
+          <attvalue for="0" value="property" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="    children: element," />
+        </attvalues>
+      </node>
+      <node id="React.res::Context.provider" label="React.res::Context.provider">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @get&#10;  external provider: t&lt;'context&gt; =&gt; component&lt;props&lt;'context&gt;&gt; = &quot;Provider&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::createContext" label="React.res::createContext">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external createContext: 'a =&gt; Context.t&lt;'a&gt; = &quot;createContext&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::forwardRef" label="React.res::forwardRef">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external forwardRef: (@uncurry ('props, Js.Nullable.t&lt;ref&lt;'a&gt;&gt;) =&gt; element) =&gt; component&lt;'props&gt; =&#10;  &quot;forwardRef&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::memo" label="React.res::memo">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external memo: component&lt;'props&gt; =&gt; component&lt;'props&gt; = &quot;memo&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::memoCustomCompareProps" label="React.res::memoCustomCompareProps">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external memoCustomCompareProps: (&#10;  component&lt;'props&gt;,&#10;  @uncurry ('props, 'props) =&gt; bool,&#10;) =&gt; component&lt;'props&gt; = &quot;memo&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::fragment" label="React.res::fragment">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;) external fragment: 'a = &quot;Fragment&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Fragment" label="React.res::Fragment">
+        <attvalues>
+          <attvalue for="0" value="module" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="module Fragment = {&#10;  type props&lt;'children&gt; = {key?: string, children: 'children}&#10;&#10;  @module(&quot;react&quot;)&#10;  external make: component&lt;props&lt;'children&gt;&gt; = &quot;Fragment&quot;&#10;}" />
+        </attvalues>
+      </node>
+      <node id="React.res::Fragment.props" label="React.res::Fragment.props">
+        <attvalues>
+          <attvalue for="0" value="typeparameter" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  type props&lt;'children&gt; = {key?: string, children: 'children}" />
+        </attvalues>
+      </node>
+      <node id="React.res::Fragment.props.key" label="React.res::Fragment.props.key">
+        <attvalues>
+          <attvalue for="0" value="property" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  type props&lt;'children&gt; = {key?: string, children: 'children}" />
+        </attvalues>
+      </node>
+      <node id="React.res::Fragment.props.children" label="React.res::Fragment.props.children">
+        <attvalues>
+          <attvalue for="0" value="property" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  type props&lt;'children&gt; = {key?: string, children: 'children}" />
+        </attvalues>
+      </node>
+      <node id="React.res::Fragment.make" label="React.res::Fragment.make">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;)&#10;  external make: component&lt;props&lt;'children&gt;&gt; = &quot;Fragment&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::StrictMode" label="React.res::StrictMode">
+        <attvalues>
+          <attvalue for="0" value="module" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="module StrictMode = {&#10;  type props&lt;'children&gt; = {key?: string, children: 'children}&#10;&#10;  @module(&quot;react&quot;)&#10;  external make: component&lt;props&lt;'children&gt;&gt; = &quot;StrictMode&quot;&#10;}" />
+        </attvalues>
+      </node>
+      <node id="React.res::StrictMode.props" label="React.res::StrictMode.props">
+        <attvalues>
+          <attvalue for="0" value="typeparameter" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  type props&lt;'children&gt; = {key?: string, children: 'children}" />
+        </attvalues>
+      </node>
+      <node id="React.res::StrictMode.props.key" label="React.res::StrictMode.props.key">
+        <attvalues>
+          <attvalue for="0" value="property" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  type props&lt;'children&gt; = {key?: string, children: 'children}" />
+        </attvalues>
+      </node>
+      <node id="React.res::StrictMode.props.children" label="React.res::StrictMode.props.children">
+        <attvalues>
+          <attvalue for="0" value="property" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  type props&lt;'children&gt; = {key?: string, children: 'children}" />
+        </attvalues>
+      </node>
+      <node id="React.res::StrictMode.make" label="React.res::StrictMode.make">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;)&#10;  external make: component&lt;props&lt;'children&gt;&gt; = &quot;StrictMode&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Suspense" label="React.res::Suspense">
+        <attvalues>
+          <attvalue for="0" value="module" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="module Suspense = {&#10;  type props&lt;'children, 'fallback&gt; = {key?: string, children?: 'children, fallback?: 'fallback}&#10;&#10;  @module(&quot;react&quot;)&#10;  external make: component&lt;props&lt;'children, 'fallback&gt;&gt; = &quot;Suspense&quot;&#10;}" />
+        </attvalues>
+      </node>
+      <node id="React.res::Suspense.props" label="React.res::Suspense.props">
+        <attvalues>
+          <attvalue for="0" value="typeparameter" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  type props&lt;'children, 'fallback&gt; = {key?: string, children?: 'children, fallback?: 'fallback}" />
+        </attvalues>
+      </node>
+      <node id="React.res::Suspense.props.key" label="React.res::Suspense.props.key">
+        <attvalues>
+          <attvalue for="0" value="property" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  type props&lt;'children, 'fallback&gt; = {key?: string, children?: 'children, fallback?: 'fallback}" />
+        </attvalues>
+      </node>
+      <node id="React.res::Suspense.props.children" label="React.res::Suspense.props.children">
+        <attvalues>
+          <attvalue for="0" value="property" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  type props&lt;'children, 'fallback&gt; = {key?: string, children?: 'children, fallback?: 'fallback}" />
+        </attvalues>
+      </node>
+      <node id="React.res::Suspense.props.fallback" label="React.res::Suspense.props.fallback">
+        <attvalues>
+          <attvalue for="0" value="property" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  type props&lt;'children, 'fallback&gt; = {key?: string, children?: 'children, fallback?: 'fallback}" />
+        </attvalues>
+      </node>
+      <node id="React.res::Suspense.make" label="React.res::Suspense.make">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;)&#10;  external make: component&lt;props&lt;'children, 'fallback&gt;&gt; = &quot;Suspense&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Experimental" label="React.res::Experimental">
+        <attvalues>
+          <attvalue for="0" value="module" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="module Experimental = {&#10;  module SuspenseList = {&#10;    type revealOrder&#10;    type tail&#10;    type props&lt;'children, 'revealOrder, 'tail&gt; = {&#10;      key?: string,&#10;      children?: 'children,&#10;      revealOrder?: 'revealOrder,&#10;      tail?: 'tail,&#10;    }&#10;&#10;    @module(&quot;react&quot;)&#10;    external make: component&lt;props&lt;'children, 'revealOrder, 'tail&gt;&gt; = &quot;SuspenseList&quot;&#10;  }&#10;}" />
+        </attvalues>
+      </node>
+      <node id="React.res::Experimental.SuspenseList" label="React.res::Experimental.SuspenseList">
+        <attvalues>
+          <attvalue for="0" value="module" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  module SuspenseList = {&#10;    type revealOrder&#10;    type tail&#10;    type props&lt;'children, 'revealOrder, 'tail&gt; = {&#10;      key?: string,&#10;      children?: 'children,&#10;      revealOrder?: 'revealOrder,&#10;      tail?: 'tail,&#10;    }&#10;&#10;    @module(&quot;react&quot;)&#10;    external make: component&lt;props&lt;'children, 'revealOrder, 'tail&gt;&gt; = &quot;SuspenseList&quot;&#10;  }" />
+        </attvalues>
+      </node>
+      <node id="React.res::Experimental.SuspenseList.revealOrder" label="React.res::Experimental.SuspenseList.revealOrder">
+        <attvalues>
+          <attvalue for="0" value="typeparameter" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="    type revealOrder" />
+        </attvalues>
+      </node>
+      <node id="React.res::Experimental.SuspenseList.tail" label="React.res::Experimental.SuspenseList.tail">
+        <attvalues>
+          <attvalue for="0" value="typeparameter" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="    type tail" />
+        </attvalues>
+      </node>
+      <node id="React.res::Experimental.SuspenseList.props" label="React.res::Experimental.SuspenseList.props">
+        <attvalues>
+          <attvalue for="0" value="typeparameter" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="    type props&lt;'children, 'revealOrder, 'tail&gt; = {&#10;      key?: string,&#10;      children?: 'children,&#10;      revealOrder?: 'revealOrder,&#10;      tail?: 'tail,&#10;    }" />
+        </attvalues>
+      </node>
+      <node id="React.res::Experimental.SuspenseList.props.key" label="React.res::Experimental.SuspenseList.props.key">
+        <attvalues>
+          <attvalue for="0" value="property" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="      key?: string," />
+        </attvalues>
+      </node>
+      <node id="React.res::Experimental.SuspenseList.props.children" label="React.res::Experimental.SuspenseList.props.children">
+        <attvalues>
+          <attvalue for="0" value="property" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="      children?: 'children," />
+        </attvalues>
+      </node>
+      <node id="React.res::Experimental.SuspenseList.props.revealOrder" label="React.res::Experimental.SuspenseList.props.revealOrder">
+        <attvalues>
+          <attvalue for="0" value="property" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="      revealOrder?: 'revealOrder," />
+        </attvalues>
+      </node>
+      <node id="React.res::Experimental.SuspenseList.props.tail" label="React.res::Experimental.SuspenseList.props.tail">
+        <attvalues>
+          <attvalue for="0" value="property" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="      tail?: 'tail," />
+        </attvalues>
+      </node>
+      <node id="React.res::Experimental.SuspenseList.make" label="React.res::Experimental.SuspenseList.make">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="    @module(&quot;react&quot;)&#10;    external make: component&lt;props&lt;'children, 'revealOrder, 'tail&gt;&gt; = &quot;SuspenseList&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useState" label="React.res::useState">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useState: (@uncurry (unit =&gt; 'state)) =&gt; ('state, ('state =&gt; 'state) =&gt; unit) = &quot;useState&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useReducer" label="React.res::useReducer">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useReducer: (@uncurry ('state, 'action) =&gt; 'state, 'state) =&gt; ('state, 'action =&gt; unit) =&#10;  &quot;useReducer&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useReducerWithMapState" label="React.res::useReducerWithMapState">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useReducerWithMapState: (&#10;  @uncurry ('state, 'action) =&gt; 'state,&#10;  'initialState,&#10;  @uncurry ('initialState =&gt; 'state),&#10;) =&gt; ('state, 'action =&gt; unit) = &quot;useReducer&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useEffect" label="React.res::useEffect">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useEffect: (@uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;)) =&gt; unit = &quot;useEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useEffect0" label="React.res::useEffect0">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useEffect0: (@uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;), @as(json`[]`) _) =&gt; unit =&#10;  &quot;useEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useEffect1" label="React.res::useEffect1">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useEffect1: (@uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;), array&lt;'a&gt;) =&gt; unit = &quot;useEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useEffect2" label="React.res::useEffect2">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useEffect2: (@uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;), ('a, 'b)) =&gt; unit = &quot;useEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useEffect3" label="React.res::useEffect3">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useEffect3: (@uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;), ('a, 'b, 'c)) =&gt; unit = &quot;useEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useEffect4" label="React.res::useEffect4">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useEffect4: (@uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;), ('a, 'b, 'c, 'd)) =&gt; unit =&#10;  &quot;useEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useEffect5" label="React.res::useEffect5">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useEffect5: (@uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;), ('a, 'b, 'c, 'd, 'e)) =&gt; unit =&#10;  &quot;useEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useEffect6" label="React.res::useEffect6">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useEffect6: (@uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;), ('a, 'b, 'c, 'd, 'e, 'f)) =&gt; unit =&#10;  &quot;useEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useEffect7" label="React.res::useEffect7">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useEffect7: (&#10;  @uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;),&#10;  ('a, 'b, 'c, 'd, 'e, 'f, 'g),&#10;) =&gt; unit = &quot;useEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useLayoutEffect" label="React.res::useLayoutEffect">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useLayoutEffect: (@uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;)) =&gt; unit = &quot;useLayoutEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useLayoutEffect0" label="React.res::useLayoutEffect0">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useLayoutEffect0: (@uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;), @as(json`[]`) _) =&gt; unit =&#10;  &quot;useLayoutEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useLayoutEffect1" label="React.res::useLayoutEffect1">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useLayoutEffect1: (@uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;), array&lt;'a&gt;) =&gt; unit =&#10;  &quot;useLayoutEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useLayoutEffect2" label="React.res::useLayoutEffect2">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useLayoutEffect2: (@uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;), ('a, 'b)) =&gt; unit =&#10;  &quot;useLayoutEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useLayoutEffect3" label="React.res::useLayoutEffect3">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useLayoutEffect3: (@uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;), ('a, 'b, 'c)) =&gt; unit =&#10;  &quot;useLayoutEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useLayoutEffect4" label="React.res::useLayoutEffect4">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useLayoutEffect4: (@uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;), ('a, 'b, 'c, 'd)) =&gt; unit =&#10;  &quot;useLayoutEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useLayoutEffect5" label="React.res::useLayoutEffect5">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useLayoutEffect5: (@uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;), ('a, 'b, 'c, 'd, 'e)) =&gt; unit =&#10;  &quot;useLayoutEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useLayoutEffect6" label="React.res::useLayoutEffect6">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useLayoutEffect6: (&#10;  @uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;),&#10;  ('a, 'b, 'c, 'd, 'e, 'f),&#10;) =&gt; unit = &quot;useLayoutEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useLayoutEffect7" label="React.res::useLayoutEffect7">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useLayoutEffect7: (&#10;  @uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;),&#10;  ('a, 'b, 'c, 'd, 'e, 'f, 'g),&#10;) =&gt; unit = &quot;useLayoutEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useMemo" label="React.res::useMemo">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useMemo: (@uncurry (unit =&gt; 'any)) =&gt; 'any = &quot;useMemo&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useMemo0" label="React.res::useMemo0">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useMemo0: (@uncurry (unit =&gt; 'any), @as(json`[]`) _) =&gt; 'any = &quot;useMemo&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useMemo1" label="React.res::useMemo1">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useMemo1: (@uncurry (unit =&gt; 'any), array&lt;'a&gt;) =&gt; 'any = &quot;useMemo&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useMemo2" label="React.res::useMemo2">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useMemo2: (@uncurry (unit =&gt; 'any), ('a, 'b)) =&gt; 'any = &quot;useMemo&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useMemo3" label="React.res::useMemo3">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useMemo3: (@uncurry (unit =&gt; 'any), ('a, 'b, 'c)) =&gt; 'any = &quot;useMemo&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useMemo4" label="React.res::useMemo4">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useMemo4: (@uncurry (unit =&gt; 'any), ('a, 'b, 'c, 'd)) =&gt; 'any = &quot;useMemo&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useMemo5" label="React.res::useMemo5">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useMemo5: (@uncurry (unit =&gt; 'any), ('a, 'b, 'c, 'd, 'e)) =&gt; 'any = &quot;useMemo&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useMemo6" label="React.res::useMemo6">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useMemo6: (@uncurry (unit =&gt; 'any), ('a, 'b, 'c, 'd, 'e, 'f)) =&gt; 'any = &quot;useMemo&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useMemo7" label="React.res::useMemo7">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useMemo7: (@uncurry (unit =&gt; 'any), ('a, 'b, 'c, 'd, 'e, 'f, 'g)) =&gt; 'any = &quot;useMemo&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::callback" label="React.res::callback">
+        <attvalues>
+          <attvalue for="0" value="typeparameter" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="type callback&lt;'input, 'output&gt; = 'input =&gt; 'output" />
+        </attvalues>
+      </node>
+      <node id="React.res::useCallback" label="React.res::useCallback">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useCallback: (@uncurry ('input =&gt; 'output)) =&gt; callback&lt;'input, 'output&gt; = &quot;useCallback&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useCallback0" label="React.res::useCallback0">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useCallback0: (&#10;  @uncurry ('input =&gt; 'output),&#10;  @as(json`[]`) _,&#10;) =&gt; callback&lt;'input, 'output&gt; = &quot;useCallback&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useCallback1" label="React.res::useCallback1">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useCallback1: (@uncurry ('input =&gt; 'output), array&lt;'a&gt;) =&gt; callback&lt;'input, 'output&gt; =&#10;  &quot;useCallback&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useCallback2" label="React.res::useCallback2">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useCallback2: (@uncurry ('input =&gt; 'output), ('a, 'b)) =&gt; callback&lt;'input, 'output&gt; =&#10;  &quot;useCallback&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useCallback3" label="React.res::useCallback3">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useCallback3: (@uncurry ('input =&gt; 'output), ('a, 'b, 'c)) =&gt; callback&lt;'input, 'output&gt; =&#10;  &quot;useCallback&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useCallback4" label="React.res::useCallback4">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useCallback4: (&#10;  @uncurry ('input =&gt; 'output),&#10;  ('a, 'b, 'c, 'd),&#10;) =&gt; callback&lt;'input, 'output&gt; = &quot;useCallback&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useCallback5" label="React.res::useCallback5">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useCallback5: (&#10;  @uncurry ('input =&gt; 'output),&#10;  ('a, 'b, 'c, 'd, 'e),&#10;) =&gt; callback&lt;'input, 'output&gt; = &quot;useCallback&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useCallback6" label="React.res::useCallback6">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useCallback6: (&#10;  @uncurry ('input =&gt; 'output),&#10;  ('a, 'b, 'c, 'd, 'e, 'f),&#10;) =&gt; callback&lt;'input, 'output&gt; = &quot;useCallback&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useCallback7" label="React.res::useCallback7">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useCallback7: (&#10;  @uncurry ('input =&gt; 'output),&#10;  ('a, 'b, 'c, 'd, 'e, 'f, 'g),&#10;) =&gt; callback&lt;'input, 'output&gt; = &quot;useCallback&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useContext" label="React.res::useContext">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useContext: Context.t&lt;'any&gt; =&gt; 'any = &quot;useContext&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useRef" label="React.res::useRef">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;) external useRef: 'value =&gt; ref&lt;'value&gt; = &quot;useRef&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useImperativeHandle0" label="React.res::useImperativeHandle0">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useImperativeHandle0: (&#10;  Js.Nullable.t&lt;ref&lt;'value&gt;&gt;,&#10;  @uncurry (unit =&gt; 'value),&#10;  @as(json`[]`) _,&#10;) =&gt; unit = &quot;useImperativeHandle&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useImperativeHandle1" label="React.res::useImperativeHandle1">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useImperativeHandle1: (&#10;  Js.Nullable.t&lt;ref&lt;'value&gt;&gt;,&#10;  @uncurry (unit =&gt; 'value),&#10;  array&lt;'a&gt;,&#10;) =&gt; unit = &quot;useImperativeHandle&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useImperativeHandle2" label="React.res::useImperativeHandle2">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useImperativeHandle2: (&#10;  Js.Nullable.t&lt;ref&lt;'value&gt;&gt;,&#10;  @uncurry (unit =&gt; 'value),&#10;  ('a, 'b),&#10;) =&gt; unit = &quot;useImperativeHandle&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useImperativeHandle3" label="React.res::useImperativeHandle3">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useImperativeHandle3: (&#10;  Js.Nullable.t&lt;ref&lt;'value&gt;&gt;,&#10;  @uncurry (unit =&gt; 'value),&#10;  ('a, 'b, 'c),&#10;) =&gt; unit = &quot;useImperativeHandle&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useImperativeHandle4" label="React.res::useImperativeHandle4">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useImperativeHandle4: (&#10;  Js.Nullable.t&lt;ref&lt;'value&gt;&gt;,&#10;  @uncurry (unit =&gt; 'value),&#10;  ('a, 'b, 'c, 'd),&#10;) =&gt; unit = &quot;useImperativeHandle&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useImperativeHandle5" label="React.res::useImperativeHandle5">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useImperativeHandle5: (&#10;  Js.Nullable.t&lt;ref&lt;'value&gt;&gt;,&#10;  @uncurry (unit =&gt; 'value),&#10;  ('a, 'b, 'c, 'd, 'e),&#10;) =&gt; unit = &quot;useImperativeHandle&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useImperativeHandle6" label="React.res::useImperativeHandle6">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useImperativeHandle6: (&#10;  Js.Nullable.t&lt;ref&lt;'value&gt;&gt;,&#10;  @uncurry (unit =&gt; 'value),&#10;  ('a, 'b, 'c, 'd, 'e, 'f),&#10;) =&gt; unit = &quot;useImperativeHandle&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useImperativeHandle7" label="React.res::useImperativeHandle7">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useImperativeHandle7: (&#10;  Js.Nullable.t&lt;ref&lt;'value&gt;&gt;,&#10;  @uncurry (unit =&gt; 'value),&#10;  ('a, 'b, 'c, 'd, 'e, 'f, 'g),&#10;) =&gt; unit = &quot;useImperativeHandle&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useId" label="React.res::useId">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;) external useId: unit =&gt; string = &quot;useId&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useDeferredValue" label="React.res::useDeferredValue">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;) external useDeferredValue: 'value =&gt; 'value = &quot;useDeferredValue&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useTransition" label="React.res::useTransition">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useTransition: unit =&gt; (bool, (. unit =&gt; unit) =&gt; unit) = &quot;useTransition&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useInsertionEffect" label="React.res::useInsertionEffect">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useInsertionEffect: (@uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;)) =&gt; unit =&#10;  &quot;useInsertionEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useInsertionEffect0" label="React.res::useInsertionEffect0">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useInsertionEffect0: (@uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;), @as(json`[]`) _) =&gt; unit =&#10;  &quot;useInsertionEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useInsertionEffect1" label="React.res::useInsertionEffect1">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useInsertionEffect1: (@uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;), array&lt;'a&gt;) =&gt; unit =&#10;  &quot;useInsertionEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useInsertionEffect2" label="React.res::useInsertionEffect2">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useInsertionEffect2: (@uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;), ('a, 'b)) =&gt; unit =&#10;  &quot;useInsertionEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useInsertionEffect3" label="React.res::useInsertionEffect3">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useInsertionEffect3: (@uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;), ('a, 'b, 'c)) =&gt; unit =&#10;  &quot;useInsertionEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useInsertionEffect4" label="React.res::useInsertionEffect4">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useInsertionEffect4: (@uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;), ('a, 'b, 'c, 'd)) =&gt; unit =&#10;  &quot;useInsertionEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useInsertionEffect5" label="React.res::useInsertionEffect5">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useInsertionEffect5: (&#10;  @uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;),&#10;  ('a, 'b, 'c, 'd, 'e),&#10;) =&gt; unit = &quot;useInsertionEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useInsertionEffect6" label="React.res::useInsertionEffect6">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useInsertionEffect6: (&#10;  @uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;),&#10;  ('a, 'b, 'c, 'd, 'e, 'f),&#10;) =&gt; unit = &quot;useInsertionEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useInsertionEffect7" label="React.res::useInsertionEffect7">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useInsertionEffect7: (&#10;  @uncurry (unit =&gt; option&lt;unit =&gt; unit&gt;),&#10;  ('a, 'b, 'c, 'd, 'e, 'f, 'g),&#10;) =&gt; unit = &quot;useInsertionEffect&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useSyncExternalStore" label="React.res::useSyncExternalStore">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useSyncExternalStore: (&#10;  ~subscribe: @uncurry (unit =&gt; unit, . unit) =&gt; unit,&#10;  ~getSnapshot: @uncurry unit =&gt; 'state,&#10;) =&gt; 'state = &quot;useSyncExternalStore&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::useSyncExternalStoreWithServerSnapshot" label="React.res::useSyncExternalStoreWithServerSnapshot">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@module(&quot;react&quot;)&#10;external useSyncExternalStoreWithServerSnapshot: (&#10;  ~subscribe: @uncurry (unit =&gt; unit, . unit) =&gt; unit,&#10;  ~getSnapshot: @uncurry unit =&gt; 'state,&#10;  ~getServerSnapshot: @uncurry unit =&gt; 'state,&#10;) =&gt; 'state = &quot;useSyncExternalStore&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Uncurried" label="React.res::Uncurried">
+        <attvalues>
+          <attvalue for="0" value="module" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="module Uncurried = {&#10;  @module(&quot;react&quot;)&#10;  external useState: (@uncurry (unit =&gt; 'state)) =&gt; ('state, (. 'state =&gt; 'state) =&gt; unit) =&#10;    &quot;useState&quot;&#10;&#10;  @module(&quot;react&quot;)&#10;  external useReducer: (&#10;    @uncurry ('state, 'action) =&gt; 'state,&#10;    'state,&#10;  ) =&gt; ('state, (. 'action) =&gt; unit) = &quot;useReducer&quot;&#10;&#10;  @module(&quot;react&quot;)&#10;  external useReducerWithMapState: (&#10;    @uncurry ('state, 'action) =&gt; 'state,&#10;    'initialState,&#10;    @uncurry ('initialState =&gt; 'state),&#10;  ) =&gt; ('state, (. 'action) =&gt; unit) = &quot;useReducer&quot;&#10;&#10;  type callback&lt;'input, 'output&gt; = (. 'input) =&gt; 'output&#10;&#10;  @module(&quot;react&quot;)&#10;  external useCallback: (@uncurry ('input =&gt; 'output)) =&gt; callback&lt;'input, 'output&gt; = &quot;useCallback&quot;&#10;&#10;  @module(&quot;react&quot;)&#10;  external useCallback0: (&#10;    @uncurry ('input =&gt; 'output),&#10;    @as(json`[]`) _,&#10;  ) =&gt; callback&lt;'input, 'output&gt; = &quot;useCallback&quot;&#10;&#10;  @module(&quot;react&quot;)&#10;  external useCallback1: (@uncurry ('input =&gt; 'output), array&lt;'a&gt;) =&gt; callback&lt;'input, 'output&gt; =&#10;    &quot;useCallback&quot;&#10;&#10;  @module(&quot;react&quot;)&#10;  external useCallback2: (@uncurry ('input =&gt; 'output), ('a, 'b)) =&gt; callback&lt;'input, 'output&gt; =&#10;    &quot;useCallback&quot;&#10;&#10;  @module(&quot;react&quot;)&#10;  external useCallback3: (@uncurry ('input =&gt; 'output), ('a, 'b, 'c)) =&gt; callback&lt;'input, 'output&gt; =&#10;    &quot;useCallback&quot;&#10;&#10;  @module(&quot;react&quot;)&#10;  external useCallback4: (&#10;    @uncurry ('input =&gt; 'output),&#10;    ('a, 'b, 'c, 'd),&#10;  ) =&gt; callback&lt;'input, 'output&gt; = &quot;useCallback&quot;&#10;&#10;  @module(&quot;react&quot;)&#10;  external useCallback5: (&#10;    @uncurry ('input =&gt; 'output),&#10;    ('a, 'b, 'c, 'd, 'e),&#10;  ) =&gt; callback&lt;'input, 'output&gt; = &quot;useCallback&quot;&#10;&#10;  @module(&quot;react&quot;)&#10;  external useCallback6: (&#10;    @uncurry ('input =&gt; 'output),&#10;    ('a, 'b, 'c, 'd, 'e, 'f),&#10;  ) =&gt; callback&lt;'input, 'output&gt; = &quot;useCallback&quot;&#10;&#10;  @module(&quot;react&quot;)&#10;  external useCallback7: (&#10;    @uncurry ('input =&gt; 'output),&#10;    ('a, 'b, 'c, 'd, 'e, 'f, 'g),&#10;  ) =&gt; callback&lt;'input, 'output&gt; = &quot;useCallback&quot;&#10;}" />
+        </attvalues>
+      </node>
+      <node id="React.res::Uncurried.useState" label="React.res::Uncurried.useState">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;)&#10;  external useState: (@uncurry (unit =&gt; 'state)) =&gt; ('state, (. 'state =&gt; 'state) =&gt; unit) =&#10;    &quot;useState&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Uncurried.useReducer" label="React.res::Uncurried.useReducer">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;)&#10;  external useReducer: (&#10;    @uncurry ('state, 'action) =&gt; 'state,&#10;    'state,&#10;  ) =&gt; ('state, (. 'action) =&gt; unit) = &quot;useReducer&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Uncurried.useReducerWithMapState" label="React.res::Uncurried.useReducerWithMapState">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;)&#10;  external useReducerWithMapState: (&#10;    @uncurry ('state, 'action) =&gt; 'state,&#10;    'initialState,&#10;    @uncurry ('initialState =&gt; 'state),&#10;  ) =&gt; ('state, (. 'action) =&gt; unit) = &quot;useReducer&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Uncurried.callback" label="React.res::Uncurried.callback">
+        <attvalues>
+          <attvalue for="0" value="typeparameter" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  type callback&lt;'input, 'output&gt; = (. 'input) =&gt; 'output" />
+        </attvalues>
+      </node>
+      <node id="React.res::Uncurried.useCallback" label="React.res::Uncurried.useCallback">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;)&#10;  external useCallback: (@uncurry ('input =&gt; 'output)) =&gt; callback&lt;'input, 'output&gt; = &quot;useCallback&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Uncurried.useCallback0" label="React.res::Uncurried.useCallback0">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;)&#10;  external useCallback0: (&#10;    @uncurry ('input =&gt; 'output),&#10;    @as(json`[]`) _,&#10;  ) =&gt; callback&lt;'input, 'output&gt; = &quot;useCallback&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Uncurried.useCallback1" label="React.res::Uncurried.useCallback1">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;)&#10;  external useCallback1: (@uncurry ('input =&gt; 'output), array&lt;'a&gt;) =&gt; callback&lt;'input, 'output&gt; =&#10;    &quot;useCallback&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Uncurried.useCallback2" label="React.res::Uncurried.useCallback2">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;)&#10;  external useCallback2: (@uncurry ('input =&gt; 'output), ('a, 'b)) =&gt; callback&lt;'input, 'output&gt; =&#10;    &quot;useCallback&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Uncurried.useCallback3" label="React.res::Uncurried.useCallback3">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;)&#10;  external useCallback3: (@uncurry ('input =&gt; 'output), ('a, 'b, 'c)) =&gt; callback&lt;'input, 'output&gt; =&#10;    &quot;useCallback&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Uncurried.useCallback4" label="React.res::Uncurried.useCallback4">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;)&#10;  external useCallback4: (&#10;    @uncurry ('input =&gt; 'output),&#10;    ('a, 'b, 'c, 'd),&#10;  ) =&gt; callback&lt;'input, 'output&gt; = &quot;useCallback&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Uncurried.useCallback5" label="React.res::Uncurried.useCallback5">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;)&#10;  external useCallback5: (&#10;    @uncurry ('input =&gt; 'output),&#10;    ('a, 'b, 'c, 'd, 'e),&#10;  ) =&gt; callback&lt;'input, 'output&gt; = &quot;useCallback&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Uncurried.useCallback6" label="React.res::Uncurried.useCallback6">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;)&#10;  external useCallback6: (&#10;    @uncurry ('input =&gt; 'output),&#10;    ('a, 'b, 'c, 'd, 'e, 'f),&#10;  ) =&gt; callback&lt;'input, 'output&gt; = &quot;useCallback&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::Uncurried.useCallback7" label="React.res::Uncurried.useCallback7">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="  @module(&quot;react&quot;)&#10;  external useCallback7: (&#10;    @uncurry ('input =&gt; 'output),&#10;    ('a, 'b, 'c, 'd, 'e, 'f, 'g),&#10;  ) =&gt; callback&lt;'input, 'output&gt; = &quot;useCallback&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::setDisplayName" label="React.res::setDisplayName">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@set&#10;external setDisplayName: (component&lt;'props&gt;, string) =&gt; unit = &quot;displayName&quot;" />
+        </attvalues>
+      </node>
+      <node id="React.res::displayName" label="React.res::displayName">
+        <attvalues>
+          <attvalue for="0" value="variable" />
+          <attvalue for="1" value="/Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/src/React.res" />
+          <attvalue for="2" value="@get @return(nullable)&#10;external displayName: component&lt;'props&gt; =&gt; option&lt;string&gt; = &quot;displayName&quot;" />
+        </attvalues>
+      </node>
+    </nodes>
+    <edges>
+      <edge source="Main.res::main" target="External/Built-in" id="0" type="external_reference" />
+      <edge source="Main.res::make" target="Main.res::make.statusMessage" id="1" type="reference" />
+      <edge source="Main.res::make" target="External/Built-in" id="2" type="external_reference" />
+      <edge source="Main.res::make" target="React.res::element" id="3" type="reference" />
+      <edge source="Main.res::make" target="Main.res::make.myName" id="4" type="reference" />
+      <edge source="Main.res::make.myId" target="External/Built-in" id="5" type="external_reference" />
+      <edge source="Main.res::make.myName" target="External/Built-in" id="6" type="external_reference" />
+      <edge source="Main.res::make.myEmail" target="External/Built-in" id="7" type="external_reference" />
+      <edge source="Main.res::make.user1" target="Utils.res::makeUser" id="8" type="reference" />
+      <edge source="Main.res::make.user1" target="Main.res::make.myName" id="9" type="reference" />
+      <edge source="Main.res::make.user1" target="Main.res::make.myId" id="10" type="reference" />
+      <edge source="Main.res::make.user1" target="Main.res::make.myEmail" id="11" type="reference" />
+      <edge source="Main.res::make.userEmail" target="External/Built-in" id="12" type="external_reference" />
+      <edge source="Main.res::make.status" target="Utils.res::loginUser" id="13" type="reference" />
+      <edge source="Main.res::make.statusMessage" target="External/Built-in" id="14" type="external_reference" />
+      <edge source="External.res::logCurrentTime" target="External/Built-in" id="15" type="external_reference" />
+      <edge source="External.res::isToday" target="External/Built-in" id="16" type="external_reference" />
+      <edge source="Utils.res::makeUser" target="External/Built-in" id="17" type="external_reference" />
+      <edge source="Utils.res::getEmail" target="External/Built-in" id="18" type="external_reference" />
+      <edge source="Utils.res::loginUser" target="External/Built-in" id="19" type="external_reference" />
+      <edge source="Data.res::requestStatus" target="External/Built-in" id="20" type="external_reference" />
+      <edge source="Data.res::requestStatus.Loading" target="External/Built-in" id="21" type="external_reference" />
+      <edge source="Data.res::requestStatus.Success" target="External/Built-in" id="22" type="external_reference" />
+      <edge source="Data.res::requestStatus.Error" target="External/Built-in" id="23" type="external_reference" />
+      <edge source="Data.res::Request" target="External/Built-in" id="24" type="external_reference" />
+      <edge source="Data.res::Request.fetchData" target="Data.res::requestStatus.Loading" id="25" type="reference" />
+      <edge source="Data.res::Request.fetchData" target="External/Built-in" id="26" type="external_reference" />
+      <edge source="Data.res::Request.fetchData" target="Data.res::requestStatus.Success" id="27" type="reference" />
+      <edge source="Data.res::Request.fetchData" target="Data.res::requestStatus.Error" id="28" type="reference" />
+      <edge source="Data.res::Request.fetchData" target="Data.res::requestStatus" id="29" type="reference" />
+      <edge source="Data.res::NetworkError" target="External/Built-in" id="30" type="external_reference" />
+    </edges>
+  </graph>
+</gexf>

@@ -1,0 +1,23 @@
+rescript = 1
+g_finger := /Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/lib/ocaml/install.stamp
+rule astj
+  command = /Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/rescript/darwinarm64/bsc.exe  -bs-v 11.1.4 -bs-jsx 4 -bs-jsx-mode automatic -uncurried  -absname -bs-ast -o $out $i
+o src/Data.ast : astj ../../src/Data.res
+rule deps
+  command = /Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/rescript/darwinarm64/bsb_helper.exe -hash ff670f04ef72a1669bce501da30ee018 $in
+  restat = 1
+o src/Data.d : deps src/Data.ast
+rule mij
+  command = /Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/rescript/darwinarm64/bsc.exe -I src -I /Users/siraj.shaik/Desktop/lsp/rescript-graph/node_modules/@rescript/react/lib/ocaml   -uncurried -bs-package-name rescript-graph -bs-package-output commonjs:$in_d:.bs.js -bs-v $g_finger $i
+  dyndep = 1
+  restat = 1
+o src/Data.cmj src/Data.cmi ../../src/Data.bs.js : mij src/Data.ast
+o src/Main.ast : astj ../../src/Main.res
+o src/Main.d : deps src/Main.ast
+o src/Main.cmj src/Main.cmi ../../src/Main.bs.js : mij src/Main.ast
+o src/Utils.ast : astj ../../src/Utils.res
+o src/Utils.d : deps src/Utils.ast
+o src/Utils.cmj src/Utils.cmi ../../src/Utils.bs.js : mij src/Utils.ast
+o src/External.ast : astj ../../src/External.res
+o src/External.d : deps src/External.ast
+o src/External.cmj src/External.cmi ../../src/External.bs.js : mij src/External.ast

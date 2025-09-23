@@ -1,0 +1,16 @@
+# Dependencies
+/node_modules
+
+# Build output
+/lib
+/bs
+*.bs.js
+
+# Logs
+*.log
+
+# OS-specific
+.DS_Store
+
+# LSP
+.vscode
