@@ -8,7 +8,11 @@ import re
 import networkx as nx
 import pickle
 import argparse
+import concurrent.futures
 from urllib.parse import urlparse
+from tqdm import tqdm
+import queue
+import threading
 from lsprotocol.types import (
     InitializeParams,
     MessageType,
@@ -36,6 +40,12 @@ converter = converters.get_converter()
 
 # --- Global state for LSP communication ---
 request_id_counter = 1
+lsp_responses = {}
+lsp_response_events = {}
+message_queue = queue.Queue()
+file_locks = {}
+file_analysis_cache = {}
+graph_lock = threading.Lock()
 
 # --- Configuration ---
 # Path to your ReScript project root
@@ -60,7 +70,8 @@ else:
     bin_dir_name = platform_name + arch
 
 # Path to the ReScript language server executable
-LSP_SERVER_PATH = os.path.join(PROJECT_ROOT, "node_modules", "@rescript", "language-server", "out", "cli.js")
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+LSP_SERVER_PATH = os.path.join(SCRIPT_DIR, "node_modules", "@rescript", "language-server", "out", "cli.js")
 
 # --- LSP Communication Helper Functions ---
 
@@ -70,7 +81,7 @@ def start_lsp_server():
         ['node', '--max-old-space-size=4096', LSP_SERVER_PATH, '--stdio'],
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE
+        stderr=sys.stderr
     )
     return process
 
@@ -139,42 +150,62 @@ def send_request(process, method, params):
         return None
     return read_response(process, request_id)
 
-def read_response(process, expected_id):
-    """Reads JSON-RPC messages, handling server requests until the expected response is found."""
+def reader_thread(process, message_queue):
+    """Reads messages from the LSP server and puts them into a queue."""
     while True:
         header_line = process.stdout.readline()
         if not header_line:
-            return None
+            break
         header = header_line.decode('utf-8').strip()
-        if not header.startswith("Content-Length"):
-            print(f"LSP Client (stderr?): {header}")
-            continue
+        if header.startswith("Content-Length"):
+            content_length = int(header.split(':')[1].strip())
+            process.stdout.readline()
+            data = process.stdout.read(content_length).decode('utf-8')
+            message_queue.put(data)
 
-        content_length = int(header.split(':')[1].strip())
-        process.stdout.readline()  # Skip the empty line
-
-        data = process.stdout.read(content_length).decode('utf-8')
+def response_processor_thread(message_queue):
+    """Processes messages from the queue and dispatches them."""
+    while True:
+        data = message_queue.get()
+        if data is None:
+            break
         try:
             message = json.loads(data)
-            # Check if it's the response we are waiting for
-            if 'id' in message and message['id'] == expected_id and ('result' in message or 'error' in message):
-                return message
-            # Check if it's a request from the server (it has a 'method' and an 'id')
+            if 'id' in message and ('result' in message or 'error' in message):
+                request_id = message['id']
+                lsp_responses[request_id] = message
+                if request_id in lsp_response_events:
+                    lsp_response_events[request_id].set()
             elif 'method' in message and 'id' in message:
                 print(f"LSP Client: Received request from server: {message}")
-                send_response(process, message['id'], None)  # Send a generic success response
-                continue  # Continue waiting for our original response
+                send_response(lsp_process, message['id'], None)
             else:
-                # This is likely a notification from the server or a response we are not waiting for
                 print(f"LSP Client: Received notification or unexpected message: {message}")
         except json.JSONDecodeError:
             print(f"LSP Client: Failed to decode JSON: {data}")
-            return None
+
+def read_response(process, expected_id):
+    """Waits for a response with a specific ID."""
+    if expected_id not in lsp_response_events:
+        lsp_response_events[expected_id] = threading.Event()
+    
+    # Wait for the event to be set, with a timeout
+    if lsp_response_events[expected_id].wait(timeout=30):  # 30-second timeout
+        response = lsp_responses.pop(expected_id, None)
+        lsp_response_events.pop(expected_id, None)
+        return response
+    else:
+        # Timeout occurred
+        print(f"LSP Client: Timeout waiting for response for request {expected_id}")
+        lsp_response_events.pop(expected_id, None)
+        return None
 
 # --- Main Logic ---
 
 def find_potential_references(content):
     """Finds all potential function calls, JSX tags, and module access in the content."""
+    if content in file_analysis_cache:
+        return file_analysis_cache[content]["refs"]
     # This regex is a bit of a heuristic. It looks for:
     # 1. Uppercase identifiers, which are likely modules or components (e.g., Utils.makeUser, <MyComponent>)
     # 2. `Js.` followed by an identifier, for built-in JS interop (e.g., Js.log)
@@ -183,6 +214,8 @@ def find_potential_references(content):
 
 def find_jsx_tags(content):
     """Finds all JSX tags (both opening and closing) in the given content."""
+    if content in file_analysis_cache and "jsx" in file_analysis_cache[content]:
+        return file_analysis_cache[content]["jsx"]
     # This regex finds both opening tags like <Component> and closing tags like </Component>
     # It also handles self-closing tags like <Component />
     # It's not perfect, but it's a good starting point for finding potential components.
@@ -191,10 +224,16 @@ def find_jsx_tags(content):
 
 def analyze_file_on_demand(lsp_process, file_path, graph, symbol_locations, file_contents):
     """Analyzes a single file, populating the graph and symbol maps."""
-    if file_path in file_contents:
-        return # Already analyzed
+    if file_path not in file_locks:
+        file_locks[file_path] = threading.Lock()
+    with file_locks[file_path]:
+        if file_path in file_contents:
+            return  # Already analyzed
+        
+        # Add a placeholder to indicate that the file is being processed
+        file_contents[file_path] = "ANALYZING"
 
-    print(f"  [INFO] Analyzing new file on-demand: {os.path.basename(file_path)}")
+    uri = f"file://{file_path}"
     uri = f"file://{file_path}"
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
@@ -208,15 +247,15 @@ def analyze_file_on_demand(lsp_process, file_path, graph, symbol_locations, file
         text_document=TextDocumentItem(uri=uri, language_id="rescript", version=1, text=content)
     )
     send_notification(lsp_process, "textDocument/didOpen", open_params)
-    time.sleep(0.5) # Give server a moment
 
     doc_identifier = TextDocumentIdentifier(uri=uri)
     doc_sym_params = DocumentSymbolParams(text_document=doc_identifier)
     symbols_response = send_request(lsp_process, "textDocument/documentSymbol", doc_sym_params)
 
     if symbols_response and 'result' in symbols_response and symbols_response['result'] is not None:
-        symbols = converter.structure(symbols_response['result'], List[DocumentSymbol])
-        process_symbols_recursively(graph, file_path, symbols, symbol_locations, file_contents)
+        with file_locks[file_path]:
+            symbols = converter.structure(symbols_response['result'], List[DocumentSymbol])
+            process_symbols_recursively(graph, file_path, symbols, symbol_locations, file_contents)
 
 def process_symbols_recursively(graph, file_path, symbols, symbol_locations, file_contents, parent_prefix=""):
     """Recursively processes symbols, adding them to the graph and a location map."""
@@ -245,6 +284,7 @@ def process_symbols_recursively(graph, file_path, symbols, symbol_locations, fil
             process_symbols_recursively(graph, file_path, symbol.children, symbol_locations, file_contents, component_name)
 
 def build_repo_graph():
+    global lsp_process
     graph = nx.DiGraph()
     rescript_json_files = []
     for root, _, files in os.walk(PROJECT_ROOT):
@@ -274,6 +314,10 @@ def build_repo_graph():
             print("Failed to start ReScript language server.")
             continue
 
+        # Start the reader and processor threads
+        threading.Thread(target=reader_thread, args=(lsp_process, message_queue), daemon=True).start()
+        threading.Thread(target=response_processor_thread, args=(message_queue,), daemon=True).start()
+
         # 1. Initialize the LSP Session
         print("Initializing LSP session...")
         init_params = InitializeParams(
@@ -297,19 +341,21 @@ def build_repo_graph():
         print("Analyzing project files...")
         symbol_locations: Dict[str, str] = {}
         file_contents: Dict[str, str] = {}
-        for file_path in res_files:
-            analyze_file_on_demand(lsp_process, file_path, graph, symbol_locations, file_contents)
+        with concurrent.futures.ThreadPoolExecutor(max_workers=40) as executor:
+            futures = [executor.submit(analyze_file_on_demand, lsp_process, file_path, graph, symbol_locations, file_contents) for file_path in res_files]
+            for future in tqdm(concurrent.futures.as_completed(futures), total=len(res_files), desc="Analyzing project files..."):
+                future.result()
 
         # 4. Resolve all references (internal, external, and built-in)
-        print("Resolving all references...")
+        print("\nResolving all references...")
         graph.add_node("External/Built-in", kind="external", file="", code="")
 
-        for source_file_path, source_content in list(file_contents.items()):
-            lines = source_content.splitlines()
-            
-            all_refs = find_potential_references(source_content) + find_jsx_tags(source_content)
-
-            process_references(lsp_process, graph, symbol_locations, file_contents, source_file_path, lines, set(all_refs))
+        with tqdm(total=len(file_contents), desc="Resolving references") as pbar:
+            with concurrent.futures.ThreadPoolExecutor(max_workers=40) as executor:
+                futures = {executor.submit(process_references, lsp_process, graph, symbol_locations, file_contents, source_file_path, source_content.splitlines(), set(find_potential_references(source_content) + find_jsx_tags(source_content))): source_file_path for source_file_path, source_content in file_contents.items()}
+                for future in concurrent.futures.as_completed(futures):
+                    future.result()
+                    pbar.update(1)
 
         # Stop the server
         print("Shutting down LSP server...")
@@ -358,11 +404,13 @@ def handle_response(lsp_process, graph, symbol_locations, file_contents, source_
 
             target_node_name = symbol_locations.get(f"{def_file_path}:{def_line}")
             if target_node_name and source_node_name != target_node_name:
-                graph.add_edge(source_node_name, target_node_name, type=edge_type)
+                with graph_lock:
+                    graph.add_edge(source_node_name, target_node_name, type=edge_type)
     else:
         # This is likely an external or built-in function
         if edge_type == "reference": # Only add external references for definitions
-            graph.add_edge(source_node_name, "External/Built-in", type="external_reference")
+            with graph_lock:
+                graph.add_edge(source_node_name, "External/Built-in", type="external_reference")
 
 # --- Execute and Save ---
 
