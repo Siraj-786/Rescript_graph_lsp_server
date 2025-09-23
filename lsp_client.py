@@ -26,7 +26,8 @@ from lsprotocol.types import (
     TypeDefinitionParams,
     ClientCapabilities,
     WorkspaceClientCapabilities,
-    InitializedParams
+    InitializedParams,
+    WorkspaceFolder
 )
 from lsprotocol import converters
 from typing import List, Optional, Dict
@@ -78,6 +79,9 @@ def send_notification(process, method, params):
     """Sends an LSP notification."""
     if process.poll() is not None:
         print(f"LSP Client: Server process has terminated. Cannot send notification: {method}")
+        stderr_output = process.stderr.read().decode('utf-8')
+        if stderr_output:
+            print(f"LSP Client: Server stderr:\n---\n{stderr_output}\n---")
         return
 
     request = {
@@ -86,7 +90,7 @@ def send_notification(process, method, params):
         "params": converter.unstructure(params)
     }
     encoded_request = json.dumps(request).encode('utf-8')
-    header = f"Content-Length: {len(encoded_request)}\\r\\n\\r\\n".encode('utf-8')
+    header = f"Content-Length: {len(encoded_request)}\r\n\r\n".encode('utf-8')
     try:
         process.stdin.write(header + encoded_request)
         process.stdin.flush()
@@ -105,7 +109,7 @@ def send_response(process, request_id, result):
         "result": result
     }
     encoded_response = json.dumps(response).encode('utf-8')
-    header = f"Content-Length: {len(encoded_response)}\\r\\n\\r\\n".encode('utf-8')
+    header = f"Content-Length: {len(encoded_response)}\r\n\r\n".encode('utf-8')
     try:
         process.stdin.write(header + encoded_response)
         process.stdin.flush()
@@ -130,7 +134,7 @@ def send_request(process, method, params):
         "params": converter.unstructure(params)
     }
     encoded_request = json.dumps(request).encode('utf-8')
-    header = f"Content-Length: {len(encoded_request)}\\r\\n\\r\\n".encode('utf-8')
+    header = f"Content-Length: {len(encoded_request)}\r\n\r\n".encode('utf-8')
     try:
         process.stdin.write(header + encoded_request)
         process.stdin.flush()
@@ -142,20 +146,46 @@ def send_request(process, method, params):
 def read_response(process, expected_id):
     """Reads JSON-RPC messages, handling server requests until the expected response is found."""
     while True:
-        header_line = process.stdout.readline()
-        if not header_line:
-            return None
-        header = header_line.decode('utf-8').strip()
-        if not header.startswith("Content-Length"):
-            print(f"LSP Client (stderr?): {header}")
+        # Read headers until a blank line is received
+        headers = {}
+        while True:
+            line_bytes = process.stdout.readline()
+            if not line_bytes:
+                print("LSP Client: Connection closed while reading headers.")
+                return None
+            
+            line = line_bytes.decode('utf-8').strip()
+            if not line:
+                # Blank line indicates end of headers
+                break
+            
+            try:
+                key, value = line.split(':', 1)
+                headers[key.strip()] = value.strip()
+            except ValueError:
+                print(f"LSP Client: Malformed header line: {line}")
+                continue
+
+        if 'Content-Length' not in headers:
+            print(f"LSP Client: 'Content-Length' not found in headers: {headers}")
             continue
 
-        content_length = int(header.split(':')[1].strip())
-        process.stdout.readline()  # Skip the empty line
-
-        data = process.stdout.read(content_length).decode('utf-8')
         try:
-            message = json.loads(data)
+            content_length = int(headers['Content-Length'])
+        except ValueError:
+            print(f"LSP Client: Invalid Content-Length: {headers['Content-Length']}")
+            continue
+
+        # Read the message body
+        body_bytes = process.stdout.read(content_length)
+        if len(body_bytes) < content_length:
+            print("LSP Client: Connection closed while reading message body.")
+            return None
+        
+        body = body_bytes.decode('utf-8')
+        
+        try:
+            message = json.loads(body)
             # Check if it's the response we are waiting for
             if 'id' in message and message['id'] == expected_id and ('result' in message or 'error' in message):
                 return message
@@ -168,7 +198,7 @@ def read_response(process, expected_id):
                 # This is likely a notification from the server or a response we are not waiting for
                 print(f"LSP Client: Received notification or unexpected message: {message}")
         except json.JSONDecodeError:
-            print(f"LSP Client: Failed to decode JSON: {data}")
+            print(f"LSP Client: Failed to decode JSON: {body}")
             return None
 
 # --- Main Logic ---
@@ -281,11 +311,48 @@ def build_repo_graph():
         init_params = InitializeParams(
             process_id=os.getpid(),
             root_uri=f"file://{project_root}",
+            workspace_folders=[WorkspaceFolder(uri=f"file://{project_root}", name=os.path.basename(project_root))],
             capabilities=ClientCapabilities(workspace=WorkspaceClientCapabilities()),
         )
-        send_request(lsp_process, "initialize", init_params)
+
+        # Manually send initialize, then initialized, then wait for initialize response
+        # This is to break a potential deadlock where the server waits for `initialized`
+        # before responding to `initialize`.
+        global request_id_counter
+        init_request_id = request_id_counter
+        request_id_counter += 1
+
+        init_request_payload = {
+            "jsonrpc": "2.0",
+            "id": init_request_id,
+            "method": "initialize",
+            "params": converter.unstructure(init_params)
+        }
+        encoded_request = json.dumps(init_request_payload).encode('utf-8')
+        header = f"Content-Length: {len(encoded_request)}\r\n\r\n".encode('utf-8')
+        
+        try:
+            lsp_process.stdin.write(header + encoded_request)
+            lsp_process.stdin.flush()
+        except BrokenPipeError:
+            print(f"LSP Client: Broken pipe on initialize. The LSP server may have crashed.")
+            lsp_process.kill()
+            continue
+
         send_notification(lsp_process, "initialized", InitializedParams())
-        time.sleep(10) # Give server a moment to finish initializing
+
+        print("LSP Client: Waiting for initialize response...")
+        init_response = read_response(lsp_process, init_request_id)
+
+        if init_response is None:
+            print("LSP Client: Did not receive initialize response. Server may have crashed or is unresponsive.")
+            stderr_output = lsp_process.stderr.read().decode('utf-8')
+            if stderr_output:
+                print(f"LSP Client: Server stderr:\n---\n{stderr_output}\n---")
+            lsp_process.kill()
+            continue
+        
+        print("LSP Client: Initialize handshake complete.")
 
         # 2. Get list of all .res files
         for root, _, files in os.walk(os.path.join(project_root, "src")):
