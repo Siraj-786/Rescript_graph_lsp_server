@@ -6,6 +6,7 @@ import sys
 import platform
 import re
 import networkx as nx
+import pickle
 from urllib.parse import urlparse
 from lsprotocol.types import (
     InitializeParams,
@@ -195,7 +196,10 @@ def process_symbols_recursively(graph, file_path, symbols, symbol_locations, fil
     """Recursively processes symbols, adding them to the graph and a location map."""
     lines = file_contents.get(file_path, "").splitlines()
     for symbol in symbols:
-        if symbol.kind.name.lower() == "property":
+        kind = symbol.kind.name.lower()
+        if kind not in ["module", "function", "typeparameter", "variable"]:
+            if hasattr(symbol, 'children') and symbol.children:
+                process_symbols_recursively(graph, file_path, symbol.children, symbol_locations, file_contents, parent_prefix)
             continue
         component_name = f"{parent_prefix}.{symbol.name}" if parent_prefix else symbol.name
         node_name = f"{os.path.basename(file_path)}::{component_name}"
@@ -205,7 +209,7 @@ def process_symbols_recursively(graph, file_path, symbols, symbol_locations, fil
         end_line = symbol.range.end.line
         code_snippet = "\n".join(lines[start_line:end_line+1])
 
-        graph.add_node(node_name, kind=symbol.kind.name.lower(), file=file_path, code=code_snippet)
+        graph.add_node(node_name, kind=kind, file=file_path, code=code_snippet)
         
         # Map every line within the symbol's range to its full node name
         for line in range(symbol.range.start.line, symbol.range.end.line + 1):
@@ -342,6 +346,15 @@ if __name__ == "__main__":
         print(f"\nGraph created with {code_graph.number_of_nodes()} nodes and {code_graph.number_of_edges()} edges.")
         
         # Save the graph to a file for visualization
-        output_file = "rescript_repo.gexf"
-        nx.write_gexf(code_graph, output_file)
-        print(f"Graph saved to '{output_file}'. Use a tool like Gephi to visualize it.")
+        output_gexf = "rescript_repo.gexf"
+        nx.write_gexf(code_graph, output_gexf)
+        print(f"Graph saved to '{output_gexf}'. Use a tool like Gephi to visualize it.")
+
+        output_graphml = "rescript_repo.graphml"
+        nx.write_graphml(code_graph, output_graphml)
+        print(f"Graph saved to '{output_graphml}'.")
+
+        output_pkl = "rescript_repo.pkl"
+        with open(output_pkl, 'wb') as f:
+            pickle.dump(code_graph, f)
+        print(f"Graph saved to '{output_pkl}'.")
