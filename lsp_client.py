@@ -81,7 +81,7 @@ def start_lsp_server():
         ['node', '--max-old-space-size=4096', LSP_SERVER_PATH, '--stdio'],
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
-        stderr=sys.stderr
+        stderr=open("lsp_server.log", "w")
     )
     return process
 
@@ -341,21 +341,29 @@ def build_repo_graph():
         print("Analyzing project files...")
         symbol_locations: Dict[str, str] = {}
         file_contents: Dict[str, str] = {}
-        with concurrent.futures.ThreadPoolExecutor(max_workers=40) as executor:
-            futures = [executor.submit(analyze_file_on_demand, lsp_process, file_path, graph, symbol_locations, file_contents) for file_path in res_files]
-            for future in tqdm(concurrent.futures.as_completed(futures), total=len(res_files), desc="Analyzing project files..."):
-                future.result()
+        batch_size = 50
+        for i in tqdm(range(0, len(res_files), batch_size), desc="Analyzing file batches..."):
+            batch = res_files[i:i+batch_size]
+            with concurrent.futures.ThreadPoolExecutor(max_workers=40) as executor:
+                futures = [executor.submit(analyze_file_on_demand, lsp_process, file_path, graph, symbol_locations, file_contents) for file_path in batch]
+                for future in concurrent.futures.as_completed(futures):
+                    future.result()
+            # Save graph after each batch
+            save_graph(graph)
 
         # 4. Resolve all references (internal, external, and built-in)
         print("\nResolving all references...")
         graph.add_node("External/Built-in", kind="external", file="", code="")
 
-        with tqdm(total=len(file_contents), desc="Resolving references") as pbar:
+        file_items = list(file_contents.items())
+        for i in tqdm(range(0, len(file_items), batch_size), desc="Resolving reference batches..."):
+            batch = file_items[i:i+batch_size]
             with concurrent.futures.ThreadPoolExecutor(max_workers=40) as executor:
-                futures = {executor.submit(process_references, lsp_process, graph, symbol_locations, file_contents, source_file_path, source_content.splitlines(), set(find_potential_references(source_content) + find_jsx_tags(source_content))): source_file_path for source_file_path, source_content in file_contents.items()}
+                futures = {executor.submit(process_references, lsp_process, graph, symbol_locations, file_contents, source_file_path, source_content.splitlines(), set(find_potential_references(source_content) + find_jsx_tags(source_content))): source_file_path for source_file_path, source_content in batch if source_content != "ANALYZING"}
                 for future in concurrent.futures.as_completed(futures):
                     future.result()
-                    pbar.update(1)
+            # Save graph after each batch
+            save_graph(graph)
 
         # Stop the server
         print("Shutting down LSP server...")
@@ -412,23 +420,29 @@ def handle_response(lsp_process, graph, symbol_locations, file_contents, source_
             with graph_lock:
                 graph.add_edge(source_node_name, "External/Built-in", type="external_reference")
 
+def save_graph(graph):
+    """Saves the graph to various formats."""
+    with graph_lock:
+        print(f"\nGraph updated with {graph.number_of_nodes()} nodes and {graph.number_of_edges()} edges.")
+        
+        # Save the graph to a file for visualization
+        output_gexf = "batch_processed_file.gexf"
+        nx.write_gexf(graph, output_gexf)
+        print(f"Graph saved to '{output_gexf}'. Use a tool like Gephi to visualize it.")
+
+        output_graphml = "batch_processed_file.graphml"
+        nx.write_graphml(graph, output_graphml)
+        print(f"Graph saved to '{output_graphml}'.")
+
+        output_pkl = "batch_processed_file.pkl"
+        with open(output_pkl, 'wb') as f:
+            pickle.dump(graph, f)
+        print(f"Graph saved to '{output_pkl}'.")
+
 # --- Execute and Save ---
 
 if __name__ == "__main__":
     code_graph = build_repo_graph()
     if code_graph:
-        print(f"\nGraph created with {code_graph.number_of_nodes()} nodes and {code_graph.number_of_edges()} edges.")
-        
-        # Save the graph to a file for visualization
-        output_gexf = "rescript_repo.gexf"
-        nx.write_gexf(code_graph, output_gexf)
-        print(f"Graph saved to '{output_gexf}'. Use a tool like Gephi to visualize it.")
-
-        output_graphml = "rescript_repo.graphml"
-        nx.write_graphml(code_graph, output_graphml)
-        print(f"Graph saved to '{output_graphml}'.")
-
-        output_pkl = "rescript_repo.pkl"
-        with open(output_pkl, 'wb') as f:
-            pickle.dump(code_graph, f)
-        print(f"Graph saved to '{output_pkl}'.")
+        print("\n--- Final Graph ---")
+        save_graph(code_graph)
