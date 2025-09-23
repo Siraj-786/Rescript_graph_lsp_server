@@ -26,13 +26,17 @@ This project provides a Python script that analyzes a ReScript repository and ge
 
 ## Usage
 
-To generate the graph for a ReScript project, run the `lsp_client.py` script from within the project's root directory:
+To generate the graph for a ReScript project, run the `lsp_client.py` script, optionally passing the path to the project's root directory as an argument. If no path is provided, it will analyze the current directory.
 
 ```bash
+# Analyze the current directory
 python3 lsp_client.py
+
+# Analyze a specific project
+python3 lsp_client.py /path/to/your/rescript/project
 ```
 
-The script will automatically find all `rescript.json` files in the current directory and its subdirectories, and generate the graph for each project.
+The script will automatically find all `rescript.json` files in the specified directory and its subdirectories, and generate the graph for each project.
 
 ## Output
 

@@ -7,6 +7,7 @@ import platform
 import re
 import networkx as nx
 import pickle
+import argparse
 from urllib.parse import urlparse
 from lsprotocol.types import (
     InitializeParams,
@@ -38,7 +39,10 @@ request_id_counter = 1
 
 # --- Configuration ---
 # Path to your ReScript project root
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+parser = argparse.ArgumentParser()
+parser.add_argument("project_root", nargs="?", default=".", help="The root directory of the ReScript project to analyze.")
+args = parser.parse_args()
+PROJECT_ROOT = os.path.abspath(args.project_root)
 
 # Determine the platform-specific binary path for the language server
 platform_name = sys.platform
