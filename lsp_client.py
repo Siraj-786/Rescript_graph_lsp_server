@@ -86,7 +86,7 @@ def send_notification(process, method, params):
         "params": converter.unstructure(params)
     }
     encoded_request = json.dumps(request).encode('utf-8')
-    header = f"Content-Length: {len(encoded_request)}\r\n\r\n".encode('utf-8')
+    header = f"Content-Length: {len(encoded_request)}\\r\\n\\r\\n".encode('utf-8')
     try:
         process.stdin.write(header + encoded_request)
         process.stdin.flush()
@@ -105,7 +105,7 @@ def send_response(process, request_id, result):
         "result": result
     }
     encoded_response = json.dumps(response).encode('utf-8')
-    header = f"Content-Length: {len(encoded_response)}\r\n\r\n".encode('utf-8')
+    header = f"Content-Length: {len(encoded_response)}\\r\\n\\r\\n".encode('utf-8')
     try:
         process.stdin.write(header + encoded_response)
         process.stdin.flush()
@@ -130,7 +130,7 @@ def send_request(process, method, params):
         "params": converter.unstructure(params)
     }
     encoded_request = json.dumps(request).encode('utf-8')
-    header = f"Content-Length: {len(encoded_request)}\r\n\r\n".encode('utf-8')
+    header = f"Content-Length: {len(encoded_request)}\\r\\n\\r\\n".encode('utf-8')
     try:
         process.stdin.write(header + encoded_request)
         process.stdin.flush()
@@ -179,7 +179,7 @@ def find_potential_references(content):
     # 1. Uppercase identifiers, which are likely modules or components (e.g., Utils.makeUser, <MyComponent>)
     # 2. `Js.` followed by an identifier, for built-in JS interop (e.g., Js.log)
     # 3. `Array.` for built-in array functions.
-    return re.findall(r"([A-Z][\w\.]*|Js\.\w+|Array\.\w+)", content)
+    return re.findall(r"([A-Z][\\w\\.]*|Js\\.\\w+|Array\\.\\w+)", content)
 
 def find_jsx_tags(content):
     """Finds all JSX tags (both opening and closing) in the given content."""
@@ -187,7 +187,7 @@ def find_jsx_tags(content):
     # It also handles self-closing tags like <Component />
     # It's not perfect, but it's a good starting point for finding potential components.
     # This regex finds both uppercase and lowercase JSX tags.
-    return re.findall(r"<\/?([a-zA-Z][\w\.]*)", content)
+    return re.findall(r"<\\/?([a-zA-Z][\\w\\.]*)", content)
 
 def analyze_file_on_demand(lsp_process, file_path, graph, symbol_locations, file_contents):
     """Analyzes a single file, populating the graph and symbol maps."""
@@ -228,14 +228,16 @@ def process_symbols_recursively(graph, file_path, symbols, symbol_locations, fil
                 process_symbols_recursively(graph, file_path, symbol.children, symbol_locations, file_contents, parent_prefix)
             continue
         component_name = f"{parent_prefix}.{symbol.name}" if parent_prefix else symbol.name
-        node_name = f"{os.path.basename(file_path)}::{component_name}"
+        relative_path = os.path.relpath(file_path, PROJECT_ROOT)
+        print(f"DEBUG: file_path={file_path}, PROJECT_ROOT={PROJECT_ROOT}, relative_path={relative_path}")
+        node_name = f"{relative_path}::{component_name}"
         
         # Extract the code for the symbol
         start_line = symbol.range.start.line
         end_line = symbol.range.end.line
-        code_snippet = "\n".join(lines[start_line:end_line+1])
+        code_snippet = "\\n".join(lines[start_line:end_line+1])
 
-        graph.add_node(node_name, kind=kind, file=file_path, code=code_snippet)
+        graph.add_node(node_name, kind=kind, file=relative_path, code=code_snippet)
         
         # Map every line within the symbol's range to its full node name
         for line in range(symbol.range.start.line, symbol.range.end.line + 1):
@@ -369,18 +371,21 @@ def handle_response(lsp_process, graph, symbol_locations, file_contents, source_
 if __name__ == "__main__":
     code_graph = build_repo_graph()
     if code_graph:
-        print(f"\nGraph created with {code_graph.number_of_nodes()} nodes and {code_graph.number_of_edges()} edges.")
+        print(f"\\nGraph created with {code_graph.number_of_nodes()} nodes and {code_graph.number_of_edges()} edges.")
         
         # Save the graph to a file for visualization
-        output_gexf = "rescript_repo.gexf"
+        output_gexf = "rescript_repo_with_abs_path
+        .gexf"
         nx.write_gexf(code_graph, output_gexf)
         print(f"Graph saved to '{output_gexf}'. Use a tool like Gephi to visualize it.")
 
-        output_graphml = "rescript_repo.graphml"
+        output_graphml = "rescript_repo_with_abs_path
+        .graphml"
         nx.write_graphml(code_graph, output_graphml)
         print(f"Graph saved to '{output_graphml}'.")
 
-        output_pkl = "rescript_repo.pkl"
+        output_pkl = "rescript_repo_with_abs_path
+        .pkl"
         with open(output_pkl, 'wb') as f:
             pickle.dump(code_graph, f)
         print(f"Graph saved to '{output_pkl}'.")
