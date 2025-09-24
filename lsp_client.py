@@ -267,7 +267,7 @@ def process_symbols_recursively(graph, file_path, symbols, symbol_locations, fil
         end_line = symbol.range.end.line
         code_snippet = "\\n".join(lines[start_line:end_line+1])
 
-        graph.add_node(node_name, kind=kind, file=relative_path, code=code_snippet)
+        graph.add_node(node_name, kind=kind, file=relative_path, code=code_snippet, lineno=start_line, end_lineno=end_line)
         
         # Map every line within the symbol's range to its full node name
         for line in range(symbol.range.start.line, symbol.range.end.line + 1):
